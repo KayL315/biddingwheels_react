@@ -1,25 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter, HashRouter, Link, Route, Routes} from "react-router-dom";
+import {AdminReports} from "./AdminReportsPage/AdminReports";
+import {AdminWebsiteStats} from "./AdminWebsiteStatsPage/AdminWebsiteStats";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className={""}>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="d-flex flex-column">
+        <h1>BiddingWheels Home Page</h1>
+        <Link to={"/adminreports"}> Admin Reports </Link>
+        <Link to={"/admin-website-stats"}> Admin Website Statistics Page</Link>
+      </div>
+      <div>
+        <Routes>
+            <Route path={"/adminreports"} element={<AdminReports/>}/>
+            <Route path={"/admin-website-stats"} element={<AdminWebsiteStats/>}/>
+        </Routes>
+      </div>
+
+    </BrowserRouter>
+
   );
 }
 
