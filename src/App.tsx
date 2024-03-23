@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="d-flex flex-column">
-        <h1>BiddingWheels Home Page</h1>
+        <h1>BiddingWheels Home Page | Headbar Section</h1>
         <Link to={"/adminreports"}> Admin Reports </Link>
         <Link to={"/admin-website-stats"}> Admin Website Statistics Page</Link>
       </div>
