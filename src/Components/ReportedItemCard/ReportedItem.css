@@ -1,0 +1,61 @@
+.hw-reported-img{
+    /*width:150px;*/
+    /*max-height:100% !important;*/
+}
+
+/*Desktop */
+@media screen and (min-width: 431px){
+    .hw-reported-item{
+        max-width:1022px !important;
+        max-height:200px !important;
+        margin-bottom: 2rem;
+        border-radius: 2%;
+    }
+}
+
+/*Moible */
+@media screen and (max-width: 430px){
+    .hw-reported-item{
+        margin-bottom: 2rem;
+        border-radius: 2%;
+        width:90%;
+    }
+}
+
+@media screen and (max-width: 430px){
+    .hw-reported-img{
+        width:100%;
+    }
+}
+
+
+@media screen and (max-width: 430px){
+    .hw-reported-item h1{
+        font-size: 1.2rem;
+    }
+}
+
+.hw-reported-item h1{
+    color:black;
+
+}
+.hw-reported-item p{
+    margin:0;
+    font-weight:lighter;
+    color:black;
+
+}
+
+.hw-reported-title{
+    font-weight:bolder;
+
+}
+
+.hw-reported-item a{
+    color:black;
+    font-weight: lighter;
+}
+
+.hw-reported-item a:hover{
+    color: #98956b;
+}
