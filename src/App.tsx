@@ -7,7 +7,7 @@ import {AdminWebsiteStats} from "./AdminWebsiteStatsPage/AdminWebsiteStats";
 function App() {
 
   return (
-    <BrowserRouter>
+    <div>
       <div className="d-flex flex-column">
         <h1>BiddingWheels Home Page | Headbar Section</h1>
         <Link to={"/adminreports"}> Admin Reports </Link>
@@ -15,12 +15,11 @@ function App() {
       </div>
       <div className={""}>
         <Routes>
-            <Route path={"/adminreports"} element={<AdminReports/>}/>
-            <Route path={"/admin-website-stats"} element={<AdminWebsiteStats/>}/>
+          <Route path={"/adminreports"} element={<AdminReports/>}/>
+          <Route path={"/admin-website-stats"} element={<AdminWebsiteStats/>}/>
         </Routes>
       </div>
-
-    </BrowserRouter>
+    </div>
 
   );
 }

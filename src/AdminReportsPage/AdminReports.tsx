@@ -32,6 +32,8 @@ export const AdminReports : React.FC<{}> = ()=>{
     return(
         <div>
           <h1>Admin Reports Page</h1>
+          <h2> Reported Items ({items.length})</h2>
+          <hr/>
           <div  className={"m-5 mt-0 d-flex flex-column justify-content-center align-items-start"}>
             {
               items.map((c : any)=>(
