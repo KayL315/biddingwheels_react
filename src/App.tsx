@@ -4,6 +4,7 @@ import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import {AdminReports} from "./AdminReportsPage/AdminReports";
 import {AdminWebsiteStats} from "./AdminWebsiteStatsPage/AdminWebsiteStats";
 import {CarsDetailsPage} from "./CarsDetailsPage/CarsDetailsPage";
+import {PostListing} from "./PostListing/PostListing"
 
 function App() {
 
@@ -13,11 +14,13 @@ function App() {
         <h1>BiddingWheels Home Page | Headbar Section</h1>
         <Link to={"/adminreports"}> Admin Reports </Link>
         <Link to={"/admin-website-stats"}> Admin Website Statistics Page</Link>
+        <Link to={"/postlisting"}> Post New Listing </Link>
       </div>
       <div className={""}>
         <Routes>
           <Route path={"/adminreports"} element={<AdminReports/>}/>
           <Route path={"/admin-website-stats"} element={<AdminWebsiteStats/>}/>
+          <Route path={"/postlisting"} element={<PostListing/>}/>
           <Route path={"/:listid"} element={<CarsDetailsPage/>}/>
         </Routes>
       </div>

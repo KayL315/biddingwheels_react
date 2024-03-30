@@ -1,24 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./CarsDetailsPage.css";
-
-interface CarListing {
-    listid: number;
-    licenseNumber: string;
-    engineSerialNumber: string;
-    makeType: string;
-    model: string;
-    year: number;
-    mileage: string;
-    city: string;
-    color: string;
-    additionalFeatures: string[];
-    description: string;
-    startingPrice: number;
-    biddingDeadline: string;
-    highestBid: number;
-    image: string;
-}
+import {CarListing} from "../Interface/CarListing";
   
 const mockCarListings: CarListing[] = [
     {
