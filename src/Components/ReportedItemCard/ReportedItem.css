@@ -46,9 +46,8 @@
 
 }
 
-.hw-reported-title{
-    font-weight:bolder;
-
+.hw-reported-details .hw-reported-title{
+    font-weight:bold;
 }
 
 .hw-reported-item a{
