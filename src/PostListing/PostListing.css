@@ -1,0 +1,38 @@
+.post-listing {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  .post-listing form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .post-listing input[type="text"],
+  .post-listing input[type="number"],
+  .post-listing textarea {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .post-listing button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .post-listing button:hover {
+    background-color: #0056b3;
+  }
+  

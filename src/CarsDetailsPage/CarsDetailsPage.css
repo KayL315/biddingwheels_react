@@ -1,0 +1,49 @@
+.car-listing {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.car-listing h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.car-listing img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.car-listing p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.car-listing strong {
+    color: #222;
+}
+
+.car-listing div {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .car-listing {
+        padding: 10px;
+    }
+
+    .car-listing h2 {
+        font-size: 1.2em;
+    }
+}
