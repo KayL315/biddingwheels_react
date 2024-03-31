@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // import { getPosts, currentLoggedInProfile, signOut } from "./client";
 // import { useDispatch } from "react-redux";
 // import { emptyUser } from "../../Reducers/userReducer";
-import { FaUser } from "react-icons/fa";
+// import { FaUser } from "react-icons/fa";
 // import { findUserById } from "../../Clients/userclient";
 
 interface User {
@@ -95,7 +95,7 @@ const UserProfile: React.FC = () => {
               (
                 <div className={"et-dropdown-btn"}>
                   <Link to="/profile/all-users" className={"btn"}>
-                    <FaUser />
+                    {/*<FaUser/>*/} FaUser placeholder
                   </Link>
                 </div>
               )
