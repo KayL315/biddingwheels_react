@@ -7,6 +7,10 @@ import {CarsDetailsPage} from "./CarsDetailsPage/CarsDetailsPage";
 import {PostListing} from "./PostListing/PostListing"
 import LoginPage from "./LoginPage/LoginPage"
 import UserProfile from "./UserProfile/UserProfile"
+import SignUp from './SignUp/signup';
+
+// import { Provider } from 'react-redux'; 
+// import store from './store';
 
 function App() {
 
@@ -19,6 +23,8 @@ function App() {
         <Link to={"/postlisting"}> Post New Listing </Link>
         <Link to={"/login"}> Login Page</Link>
         <Link to={"/userprofile"}> User Profile</Link>
+        <Link to={"/signup"}> Sign Up</Link>
+
       </div>
       <div className={""}>
         <Routes>
@@ -28,6 +34,7 @@ function App() {
           <Route path={"/:listid"} element={<CarsDetailsPage/>}/>
           <Route path={"/login"} element={<LoginPage/>}/>
           <Route path={"/userprofile"} element={<UserProfile/>}/>
+          <Route path={"/signup"} element={<SignUp/>}/>
 
         </Routes>
       </div>
