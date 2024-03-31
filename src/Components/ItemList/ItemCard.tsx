@@ -13,13 +13,13 @@ const ImgUrl =
 
 export const ItemCard = (props: ItemCardProps) => {
     const {
-        name = "Title",
-        id = "123",
-        description = "a description about xxxxxxx",
-        price = "123",
+        name = "Car Name",
+        // id = "id-1234",
+        description = "Car Description, could include some details about the car, such as the year, make, model, and color.",
+        price = "40,000",
         image = ImgUrl,
     } = props;
-    console.log("ItemCard", id);
+
     return (
         <div className="item-card-container">
             <a href="/" className="item-link">

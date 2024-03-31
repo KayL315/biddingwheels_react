@@ -7,6 +7,7 @@ import {CarsDetailsPage} from "./CarsDetailsPage/CarsDetailsPage";
 import {PostListing} from "./PostListing/PostListing"
 import LoginPage from "./LoginPage/LoginPage"
 import UserProfile from "./UserProfile/UserProfile"
+import { HomePage } from './HomePage';
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
           <Route path={"/:listid"} element={<CarsDetailsPage/>}/>
           <Route path={"/login"} element={<LoginPage/>}/>
           <Route path={"/userprofile"} element={<UserProfile/>}/>
-
+          <Route path={"/"} element={<HomePage />}/>
         </Routes>
       </div>
     </div>
