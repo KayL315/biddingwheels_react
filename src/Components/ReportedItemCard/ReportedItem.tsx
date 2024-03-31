@@ -1,12 +1,12 @@
 import React from "react";
-import "./ReportedItem.css"
+import "./ReportedItem.css";
 import {Link} from "react-router-dom";
 
 export const ReportedItem : React.FC<{item: any}> = ({item})=>{
 
 
   return(
-    <div className={"d-flex justify-content-start align-items-start"}>
+    <div className={"d-flex justify-content-start align-items-start"} style={{width:"35rem"}}>
       {/* Desktop Version */}
       <Link to={"/" + String(item.listid)} className={"d-none d-sm-flex text-decoration-none hw-reported-item justify-content-center " +
         "shadow p-0 align-items-center"}>
