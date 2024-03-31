@@ -1,0 +1,6 @@
+.homepage-container {
+  background-color: rgb(38, 38, 38);
+  width: 100vw;
+  /* height: 100vh; */
+  overflow-y: scroll;
+}
