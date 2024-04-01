@@ -1,5 +1,4 @@
 import { ItemList } from "../Components/ItemList";
-import { NavBar } from "../Components/NavBar";
 import { Slides } from "../Components/Slides";
 import "./HomePage.css";
 
@@ -21,7 +20,6 @@ export const HomePage = () => {
     ];
     return (
         <div className="homepage-container">
-            <NavBar />
             <Slides slideList={defalutSlideUrls} />
             <ItemList title="Car List" items={placeholderItems} />
         </div>
