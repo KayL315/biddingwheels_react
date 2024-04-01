@@ -15,16 +15,17 @@ export const AdminWebsiteStats: React.FC<{}> = () => {
   // If data still loading
   const [loading, setLoading] = useState<boolean>(true);
 
-  const SERVER_URL : string | undefined = process.env.REACT_APP_SERVER_URL;
-  if(!SERVER_URL){
-    setError("SERVER_URL not retrieved correctly!");
-  }
-  const URL: string = SERVER_URL + "/website-stats";
 
 
   useEffect(()=>{
     const handleStatsFetch= async ()=>{
       try{
+
+        const SERVER_URL : string | undefined = process.env.REACT_APP_SERVER_URL;
+        if(!SERVER_URL){
+          setError("SERVER_URL not retrieved correctly!");
+        }
+        const URL: string = SERVER_URL + "/website-stats";
         const response : Response = await fetch(URL);
         const data = await response.json();
         if(data){
