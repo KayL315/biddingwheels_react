@@ -19,17 +19,20 @@ export const AdminReports : React.FC<{}> = ()=>{
   // Error to be displayed (if any)
   const [error, setError] = useState<string>("");
   // If data still loading
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const SERVER_URL : string | undefined = process.env.REACT_APP_SERVER_URL;
-  if(!SERVER_URL){
-    setError("SERVER_URL not retrieved correctly!");
-  }
-  const URL: string = SERVER_URL + "/reported-items";
+
+
 
   useEffect(()=>{
     const fetchItems = async ()=>{
       try{
+         
+        const SERVER_URL : string | undefined = process.env.REACT_APP_SERVER_URL;
+        if(!SERVER_URL){
+          setError("SERVER_URL not retrieved correctly!");
+        }
+        const URL: string = SERVER_URL + "/reported-items";
         const response = await fetch(URL);
           const data = await response.json();
           if(data){
