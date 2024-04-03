@@ -14,8 +14,9 @@ export interface CarListing {
     biddingDeadline: string;
     highestBid: number;
 
-    // User ID for highest bid holder
+    // User ID
     highestBidHolder:number;
+    seller:number;
 
     image: string;
 }
