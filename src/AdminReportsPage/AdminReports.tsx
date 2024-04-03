@@ -53,7 +53,6 @@ export const AdminReports : React.FC<{}> = ()=>{
       fetchItems();
     }, []);
 
-  console.log(items);
   return(
     loading ?
       <LoadingSpinner/>

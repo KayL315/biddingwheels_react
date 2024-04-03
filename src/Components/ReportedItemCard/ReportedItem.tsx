@@ -3,7 +3,6 @@ import "./ReportedItem.css";
 import {Link} from "react-router-dom";
 
 export const ReportedItem : React.FC<{item: any}> = ({item})=>{
-  console.log(item)
   return(
     <div className={"d-flex justify-content-start align-items-start"} style={{width:"35rem"}}>
       {/* Desktop Version */}
@@ -35,26 +34,26 @@ export const ReportedItem : React.FC<{item: any}> = ({item})=>{
       </Link>
 
       {/*Mobile Version */}
-      <Link to={"/" + String(item.listid)} className={"d-sm-none d-flex text-decoration-none hw-reported-item  justify-content-center " +
+      <Link to={"/" + String(item.ListId)} className={"d-sm-none d-flex text-decoration-none hw-reported-item  justify-content-center " +
         "shadow p-0 flex-column"}>
           <div className={"d-flex justify-content-center"}>
-            <img src={item.image} className={"hw-reported-img"}></img>
+            <img src={item.Image} className={"hw-reported-img"}></img>
           </div>
           <div className={"p-25"}>
-            <h1 className={"m-0 p-0 ps-1"}>{item.make} {item.model}</h1>
+            <h1 className={"m-0 p-0 ps-1"}>{item.Make} {item.Model}</h1>
             <hr className={"m-1 p-0"}></hr>
             <div className={"hw-reported-details ps-2 pb-2"}>
-              <Link to={"/sellerId"} className={" text-decoration-none"}>
+              <Link to={"/user?id=" + item.SellerId} className={" text-decoration-none"}>
                 <b className={"hw-reported-title"}>Listed by: </b>
-                {item.seller}
+                {item.Seller}
               </Link>
               <p className={""}>
                 <b className={"hw-reported-title"}>Report Reason: </b>
-                {item.reason_for_report}
+                {item.Description}
               </p>
-              <Link to={"/reporterId"} className={" text-decoration-none"}>
+              <Link to={"/user?id=" + item.ReporterId} className={" text-decoration-none"}>
                 <b className={"hw-reported-title"}>Reported by: </b>
-                {item.reporter}
+                {item.Reporter}
               </Link>
             </div>
           </div>
