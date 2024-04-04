@@ -4,7 +4,7 @@ import { AdminReports } from "./AdminReportsPage/AdminReports";
 import { AdminWebsiteStats } from "./AdminWebsiteStatsPage/AdminWebsiteStats";
 import { CarsDetailsPage } from "./CarsDetailsPage/CarsDetailsPage";
 import { PostListing } from "./PostListing/PostListing";
-import LoginPage from "./LoginPage/LoginPage";
+import LogIn from "./LoginPage/LoginPage";
 import UserProfile from "./UserProfile/UserProfile";
 import { HomePage, ShipmentPage, PaymentPage } from "./pages";
 import SignUp from "./SignUp/signup";
