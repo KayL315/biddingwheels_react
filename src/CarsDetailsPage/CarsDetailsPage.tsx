@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import "./CarsDetailsPage.css";
 import {CarListing} from "../Interface/CarListing";
@@ -21,8 +21,9 @@ async function getCarListing(listid: string): Promise<CarListing> {
 export const CarsDetailsPage: React.FC = () => {
   const [carDetails, setCarDetails] = useState<CarListing | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
   const { listid } = useParams<{ listid: string }>();
+  const [showReportForm, setShowReportForm] = useState(false);
+  const [reportDescription, setReportDescription] = useState('');
 
   useEffect(() => {
     if (listid) {
@@ -55,6 +56,42 @@ export const CarsDetailsPage: React.FC = () => {
   ? car.highestBid.toFixed(2) 
   : parseFloat(car.highestBid || '0').toFixed(2);
 
+  const handleReportClick = () => {
+    setShowReportForm(true);
+  };
+
+  const handleReportSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const reportData = {
+      reporter_id: 1,
+      submit_time: new Date().toISOString(),
+      description: reportDescription,
+      listing_id: car.listid
+    };
+
+    try {
+      const response = await fetch(`${API_URL}/post-report`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Include authentication headers if needed
+        },
+        body: JSON.stringify(reportData)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      // Handle success here
+      setReportDescription('');
+      setShowReportForm(false);
+    } catch (error) {
+      console.error('There was a problem submitting the report:', error);
+    }
+  };
+
+
   return (
     <div className="car-listing">
       <h2>{car.make} - {car.model} ({car.year})</h2>
@@ -73,6 +110,17 @@ export const CarsDetailsPage: React.FC = () => {
         <strong>Highest Bid:</strong> ${formattedHighestBid}
       </div>
       <p><strong>Bidding Deadline:</strong> {new Date(car.biddingDeadline).toLocaleString()}</p>
+      <button onClick={handleReportClick}>Report This Listing</button>
+      {showReportForm && (
+        <form onSubmit={handleReportSubmit}>
+          <textarea
+            value={reportDescription}
+            onChange={(e) => setReportDescription(e.target.value)}
+            placeholder="Describe the issue"
+          />
+          <button type="submit">Submit Report</button>
+        </form>
+      )}
     </div>
   );
 }
