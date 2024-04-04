@@ -1,174 +1,108 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-// import { Post } from "../types"; 
-// import { getPosts, currentLoggedInProfile, signOut } from "./client";
-// import { useDispatch } from "react-redux";
-// import { emptyUser } from "../../Reducers/userReducer";
-// import { FaUser } from "react-icons/fa";
-// import { findUserById } from "../../Clients/userclient";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-interface User {
-  _id: string;
+interface UserData {
   username: string;
-  nickname: string;
-  profilePicture: string;
-  // posts: Post[];
-  personalBio: string;
+  password: string;
+  avatar: string;
+  address: string;
+  payment_method: string;
 }
 
-const UserProfile: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [user, setUser] = useState<User | null>(null);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  // const dispatch = useDispatch();
-  const [error, setError] = useState<string>("");
-  const navigate = useNavigate();
-  // const [posts, setPosts] = useState<Post[]>([]);
-
-  const fetchProfile = async () => {
-    // try {
-    //   const response = await findUserById(id);
-    //   setUser(response);
-    // } catch (error) {
-    //   setError(error.message);
-    // }
-  };
-
-  const fetchCurrentProfile = async () => {
-    // try {
-    //   const current = await currentLoggedInProfile();
-    //   current && setCurrentUser(current);
-    // } catch (error) {
-    //   console.log("Not Logged In || Failed to fetch logged in user info");
-    // }
-  };
-
-  const logOut = async () => {
-    // await signOut();
-    // dispatch(emptyUser());
-    // navigate("/home");
-  };
-
-  const fetchPosts = async () => {
-    // try {
-    //   if (id) {
-    //     const response = await getPosts(id);
-    //     setPosts(response.data);
-    //   }
-    // } catch (error) {
-    //   setError(error.message);
-    // }
-  };
-
-  const prepareData = async () => {
-    // try {
-    //   await fetchProfile();
-    //   await fetchCurrentProfile();
-    //   await fetchPosts();
-    // } catch (error) {
-    //   setError(error.message);
-    // }
-  };
+const Profile: React.FC = () => {
+  const [userData, setUserData] = useState<UserData>({ username: '', password: '', avatar: '', address: '', payment_method: '' });
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editedData, setEditedData] = useState<UserData>({ username: '', password: '', avatar: '', address: '', payment_method: '' });
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    prepareData();
+    checkSession();
   }, []);
 
-  let sameUser = false;
-  try {
-    sameUser =
-      currentUser !== null ? user?.username === currentUser.username : false;
-  } catch (err: any) {
-    setError(err.message);
+  const checkSession = async () => {
+    try {
+      const response = await axios.get<UserData>('http://localhost:8000/check_session', { withCredentials: true });
+      setUserData(response.data);
+      setIsLoggedIn(true);
+    } catch (error) {
+      setIsLoggedIn(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setEditedData({ ...userData });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedData({
+      ...editedData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleConfirm = async () => {
+    try {
+      await axios.put('http://localhost:8000/profile', editedData, { withCredentials: true });
+      setIsEditing(false);
+      checkSession();
+    } catch (error) {
+      console.error('Failed to update user information:', error);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-  
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <p>You need to log in to edit the profile!</p>
+        <Link to="/login">Log in here.</Link>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {
-      user !== null ? (
-        <div className="et-main-wrapper row">
-          {/* User Info Section */}
-          <div className="col-sm-auto d-flex justify-content-center w-100">
-            <div className="d-block">
-              {/* All Users Button */}
-              (
-                <div className={"et-dropdown-btn"}>
-                  <Link to="/profile/all-users" className={"btn"}>
-                    {/*<FaUser/>*/} FaUser placeholder
-                  </Link>
-                </div>
-              )
-
-              {/* Profile Picture */}
-              <img
-                src={user.profilePicture}
-                alt={`Profile picture for ${user.nickname}`}
-                className="form-control et-profile-picture mb-4"
-              />
-
-              {/* Username */}
-              <div className="justify-content-center d-flex mb-2">
-                <div>
-                  <strong className="h4">{user.nickname}</strong>
-                  <p>@{user.username}</p>
-                </div>
-              </div>
-
-
-
-
-              {/* User Bio */}
-              <p className="mt-3">{user.personalBio}</p>
-
-              {/* Actions Section */}
-              {sameUser && (
-                <div className="d-block float-end mt-5 w-100">
-                  <div className={"d-flex justify-content-between"}>
-                    <button
-                      className={"btn btn-danger"}
-                      onClick={logOut}
-                    >
-                      Log Out
-                    </button>
-                    <Link
-                      to={`/profile/profile-setting/${user._id}`}
-                      className="btn btn-outline-dark et-edit-profile-btn"
-                    >
-                      Edit Profile
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* User Posts Section */}
-          <div className="col-lg-9 mt-3 d-flex justify-content-center w-100">
-            <div className="d-flex flex-row flex-wrap justify-content-center">
-              {/* Map through user posts and render PostCards */}
-              {/* {posts.map((post) => (
-                <PostCards key={post.id} {...post} author_name={user.nickname} />
-              ))} */}
-            </div>
-          </div>
+      {isEditing ? (
+        <div>
+          <h2>Edit Profile</h2>
+          <form>
+            <label>Username: </label>
+            <input type="text" name="username" value={editedData.username} onChange={handleInputChange} /><br />
+            <label>Password: </label>
+            <input type="password" name="password" value={editedData.password} onChange={handleInputChange} /><br />
+            <label>Avatar: </label>
+            <input type="text" name="avatar" value={editedData.avatar} onChange={handleInputChange} /><br />
+            <label>Address: </label>
+            <input type="text" name="address" value={editedData.address} onChange={handleInputChange} /><br />
+            <label>Payment Method: </label>
+            <input type="text" name="payment_method" value={editedData.payment_method} onChange={handleInputChange} /><br />
+          </form>
+          <button onClick={handleConfirm}>Confirm</button>
         </div>
       ) : (
         <div>
-          {/* Display Error or Loader */}
-          {error !== "" && (
-            <div className={"alert alert-danger mt-2"} role={"alert"}>
-              {error}
-            </div>
-          )}
-          <div className="spinner-border" role="status">
-            <span className="sr-only"></span>
-          </div>
-          <p className={"mt-2 h2"}>You are not logged in</p>
+          <h2>User Profile</h2>
+          <p>Username: {userData.username}</p>
+          <p>Password: {userData.password}</p>
+          <p>Avatar: {userData.avatar}</p>
+          <p>Address: {userData.address}</p>
+          <p>Payment Method: {userData.payment_method}</p>
+          <button onClick={handleEdit}>Edit</button>
         </div>
       )}
     </div>
   );
 };
 
-export default UserProfile;
+export default Profile;
+
+
+

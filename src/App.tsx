@@ -5,7 +5,7 @@ import { AdminReports } from "./AdminReportsPage/AdminReports";
 import { AdminWebsiteStats } from "./AdminWebsiteStatsPage/AdminWebsiteStats";
 import { CarsDetailsPage } from "./CarsDetailsPage/CarsDetailsPage";
 import { PostListing } from "./PostListing/PostListing";
-import LoginPage from "./LoginPage/LoginPage";
+import LogIn from "./LoginPage/LoginPage";
 import UserProfile from "./UserProfile/UserProfile";
 import { HomePage } from "./HomePage";
 import SignUp from "./SignUp/signup";
@@ -39,7 +39,7 @@ function App() {
                     />
                     <Route path={"/postlisting"} element={<PostListing />} />
                     <Route path={"/:listid"} element={<CarsDetailsPage />} />
-                    <Route path={"/login"} element={<LoginPage />} />
+                    <Route path={"/login"} element={<LogIn />} />
                     <Route path={"/userprofile"} element={<UserProfile />} />
                     <Route path={"/"} element={<HomePage />} />
                     <Route path={"/signup"} element={<SignUp />} />
