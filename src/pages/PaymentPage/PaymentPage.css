@@ -1,0 +1,40 @@
+.payment-credit-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-section {
+    background-color: blanchedalmond;
+    padding: 10px;
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-confirm-btn-container {
+/* 
+    display: flex;
+    justify-content: center; */
+    /* color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9; */
+}
+
+.payment-confirm-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}

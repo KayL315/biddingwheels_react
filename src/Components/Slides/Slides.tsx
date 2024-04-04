@@ -24,16 +24,14 @@ export const Slides = (props: SlidesProps) => {
     return (
         <>
             <div className="slideshow-container">
-                <div className="mySlides slide-active slide-fade">
-                    <img
-                        src={slideList[slideIndex].url}
-                        style={{
-                            width: "100vw",
-                            height: "36vh",
-                            maxHeight: "300px",
-                        }}
-                        alt="slide-img"
-                    />
+                <div
+                    className="mySlides slide-active slide-fade"
+                >
+                    <img src={slideList[slideIndex].url} alt="slide-img" style={{
+                        position: "absolute",
+                        minWidth: 100,
+                        minHeight: 100,
+                    }}/>
                     <div className="slide-text">
                         {slideList[slideIndex].caption}
                     </div>
@@ -50,7 +48,7 @@ export const Slides = (props: SlidesProps) => {
                 {slideList.map((slide, index) => {
                     return (
                         <span
-                            id={`slide-dot-${index}`}
+                            key={`slide-dot-${index}`}
                             className="slide-dot"
                             onClick={() => currentSlide(index)}
                         ></span>

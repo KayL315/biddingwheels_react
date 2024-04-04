@@ -1,9 +1,10 @@
-import { ItemCard, ItemCardProps } from "./ItemCard";
+import { ItemCard } from "./ItemCard";
+import { CarItem } from "../../Interface";
 import "./ItemList.css";
 
 export interface ItemListProps {
     title: string;
-    items: ItemCardProps[];
+    items: CarItem[];
 }
 
 export const ItemList = (props: ItemListProps) => {

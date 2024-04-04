@@ -14,7 +14,7 @@ const ImgUrl =
 export const ItemCard = (props: ItemCardProps) => {
     const {
         name = "Car Name",
-        // id = "id-1234",
+        id = "1",
         description = "Car Description, could include some details about the car, such as the year, make, model, and color.",
         price = "40,000",
         image = ImgUrl,
@@ -22,7 +22,7 @@ export const ItemCard = (props: ItemCardProps) => {
 
     return (
         <div className="item-card-container">
-            <a href="/" className="item-link">
+            <a href={`/list/${id}`} className="item-link">
                 <div className="item-cover-container">
                     <img src={image} alt={name} className="item-cover" />
                 </div>
