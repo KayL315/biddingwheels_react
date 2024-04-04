@@ -36,7 +36,7 @@ function App() {
                             path={"/list/:listid"}
                             element={<CarsDetailsPage />}
                         />
-                        <Route path={"/login"} element={<LoginPage />} />
+                        <Route path={"/login"} element={<LogIn />} />
                         <Route
                             path={"/userprofile"}
                             element={<UserProfile />}
