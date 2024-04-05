@@ -2,6 +2,7 @@ import React, { useState, useEffect, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import "./CarsDetailsPage.css";
 import {CarListing} from "../Interface/CarListing";
+import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 async function getCarListing(listid: string): Promise<CarListing> {
@@ -64,30 +65,27 @@ export const CarsDetailsPage: React.FC = () => {
     e.preventDefault();
     const reportData = {
       reporter_id: 1,
-      submit_time: new Date().toISOString(),
       description: reportDescription,
       listing_id: car.listid
     };
-
+    console.log(reportData)
+  
     try {
-      const response = await fetch(`${API_URL}/post-report`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Include authentication headers if needed
-        },
-        body: JSON.stringify(reportData)
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
+      const response = await axios.post(`${API_URL}/post-report`, reportData);
       // Handle success here
+      console.log(response.data); // The response data from Axios
       setReportDescription('');
       setShowReportForm(false);
     } catch (error) {
-      console.error('There was a problem submitting the report:', error);
+      if (axios.isAxiosError(error)) {
+        // Now we know for sure this is an Axios error
+        const serverResponse = error.response;
+        console.error('There was a problem submitting the report:', serverResponse?.statusText);
+        console.error('Error data:', serverResponse?.data);
+      } else {
+        // Handle non-Axios errors
+        console.error('An unexpected error occurred:', error);
+      }
     }
   };
 
