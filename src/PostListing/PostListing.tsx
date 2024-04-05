@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { CarListing } from '../Interface/CarListing';
 import "./PostListing.css";
 
+const API_URL = process.env.REACT_APP_SERVER_URL;
+
 export const PostListing: React.FC = () => {
   const [newListing, setNewListing] = useState<CarListing>({
     listid: 0,
@@ -42,7 +44,7 @@ export const PostListing: React.FC = () => {
     e.preventDefault();
     // Submit newListing to server or backend
     try {
-      const response = await fetch('http://localhost:8000/api/post-car-listing/', { // Replace with your API endpoint
+      const response = await fetch(`${API_URL}/post-listing`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
