@@ -25,6 +25,7 @@ export const CarsDetailsPage: React.FC = () => {
   const { listid } = useParams<{ listid: string }>();
   const [showReportForm, setShowReportForm] = useState(false);
   const [reportDescription, setReportDescription] = useState('');
+  const [bid, setBid] = useState<number>(0);
 
   useEffect(() => {
     if (listid) {
@@ -48,6 +49,29 @@ export const CarsDetailsPage: React.FC = () => {
   }
 
   const car = carDetails;
+
+  const handleBidSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (bid <= parseFloat(formattedHighestBid)) {
+      alert("Your bid must be higher than the current highest bid.");
+      return;
+    }
+
+    const bidData = {
+      bid: bid,
+      listing_id: car.listid
+    };
+
+    try {
+      const response = await axios.post(`${API_URL}/submit-bid`, bidData);
+      // Update highest bid on success
+      setCarDetails({...carDetails, highestBid: bid}); 
+      console.log(response.data); // Log the server response
+    } catch (error) {
+      // Handle errors
+      console.error('Error placing bid:', error);
+    }
+  };
 
   const formattedStartingPrice = typeof car.startingPrice === 'number'
   ? car.startingPrice.toFixed(2)
@@ -106,6 +130,15 @@ export const CarsDetailsPage: React.FC = () => {
         <strong>Starting Price:</strong> ${formattedStartingPrice}
         <br />
         <strong>Highest Bid:</strong> ${formattedHighestBid}
+        <form onSubmit={handleBidSubmit}>
+          <input
+            type="number"
+            value={bid}
+            onChange={(e) => setBid(parseFloat(e.target.value))}
+            placeholder="Enter your bid"
+          />
+          <button type="submit">Place Bid</button>
+        </form>
       </div>
       <p><strong>Bidding Deadline:</strong> {new Date(car.biddingDeadline).toLocaleString()}</p>
       <button onClick={handleReportClick}>Report This Listing</button>
