@@ -32,6 +32,7 @@ const checkUserSession = async () => {
 export const CarsDetailsPage: React.FC = () => {
   const [carDetails, setCarDetails] = useState<CarListing | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const { listid } = useParams<{ listid: string }>();
   const [showReportForm, setShowReportForm] = useState(false);
   const [reportDescription, setReportDescription] = useState('');
@@ -48,6 +49,7 @@ export const CarsDetailsPage: React.FC = () => {
         setLoading(false);
       });
     }
+    checkUserSession().then(loggedIn => setIsLoggedIn(loggedIn));
   }, [listid]);
   
   const handleInteraction = async (action: () => Promise<void>) => {
@@ -154,7 +156,9 @@ export const CarsDetailsPage: React.FC = () => {
         <strong>Highest Bid:</strong> ${formattedHighestBid}
         <br />
         <strong>Highest Bid Holder:</strong> {car.highestBidHolderUsername}
-        <form onSubmit={handleBidSubmit}>
+        {isLoggedIn && (
+          <>
+          <form onSubmit={handleBidSubmit}>
           <input
             type="number"
             value={bid}
@@ -163,18 +167,24 @@ export const CarsDetailsPage: React.FC = () => {
           />
           <button type="submit">Place Bid</button>
         </form>
+          </>
+        )}
       </div>
       <p><strong>Bidding Deadline:</strong> {new Date(car.biddingDeadline).toLocaleString()}</p>
-      <button onClick={handleReportClick}>Report This Listing</button>
-      {showReportForm && (
-        <form onSubmit={handleReportSubmit}>
-          <textarea
-            value={reportDescription}
-            onChange={(e) => setReportDescription(e.target.value)}
-            placeholder="Describe the issue"
-          />
-          <button type="submit">Submit Report</button>
-        </form>
+      {isLoggedIn && (
+        <>
+        <button onClick={handleReportClick}>Report This Listing</button>
+        {showReportForm && (
+          <form onSubmit={handleReportSubmit}>
+            <textarea
+              value={reportDescription}
+              onChange={(e) => setReportDescription(e.target.value)}
+              placeholder="Describe the issue"
+            />
+            <button type="submit">Submit Report</button>
+          </form>
+        )}
+        </>
       )}
     </div>
   );

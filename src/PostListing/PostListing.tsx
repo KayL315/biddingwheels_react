@@ -42,14 +42,17 @@ export const PostListing: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Submit newListing to server or backend
+    const listingToSubmit = {
+      ...newListing,
+      highestBid: newListing.startingPrice,
+    };
     try {
       const response = await fetch(`${API_URL}/post-listing`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newListing)
+        body: JSON.stringify(listingToSubmit)
       });
 
       if (!response.ok) {
