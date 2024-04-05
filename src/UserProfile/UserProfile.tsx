@@ -15,7 +15,7 @@ const Profile: React.FC = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedData, setEditedData] = useState<UserData>({ username: '', password: '', avatar: '', address: '', payment_method: '' });
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // useEffect(() => {
   //   checkSession();
