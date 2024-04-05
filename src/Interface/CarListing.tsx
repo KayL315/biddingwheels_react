@@ -19,5 +19,6 @@ export interface CarListing {
     seller:number;
     sellerUsername?: string;
 
+    highestBidHolderUsername?: string;
     image: string;
 }
