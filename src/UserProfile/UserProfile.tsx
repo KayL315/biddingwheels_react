@@ -17,21 +17,43 @@ const Profile: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // useEffect(() => {
+  //   checkSession();
+  // }, []);
+
   useEffect(() => {
-    checkSession();
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+      setIsLoggedIn(true);
+    } else {
+      checkSession();
+    }
   }, []);
 
   const checkSession = async () => {
     try {
-      const response = await axios.get<UserData>('http://localhost:8000/check_session', { withCredentials: true });
-      setUserData(response.data);
-      setIsLoggedIn(true);
+      const response = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
+      if (response.data.user_role) {
+        // 用户已登录，设置用户数据并将isLoggedIn状态设置为true
+        setIsLoggedIn(true);
+        setUserData(response.data); // 可以根据需要设置用户数据
+        localStorage.setItem('userData', JSON.stringify(response.data));
+      } else {
+        // 用户未登录，将isLoggedIn状态设置为false
+        setIsLoggedIn(false);
+      }
     } catch (error) {
+      // 请求失败，将isLoggedIn状态设置为false
       setIsLoggedIn(false);
     } finally {
+      // 请求完成，将isLoading状态设置为false
       setIsLoading(false);
     }
   };
+  
+
+
 
   const handleEdit = () => {
     setIsEditing(true);
