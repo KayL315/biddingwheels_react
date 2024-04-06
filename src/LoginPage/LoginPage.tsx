@@ -155,10 +155,18 @@ const LogIn: React.FC = () => {
       // 登录成功后的处理
       console.log('Login successful:', response.data);
       window.location.href = '/'; // 导航回到首页
-    } catch (error) {
+    } catch (error: any) {
       // 处理登录失败
+      if ((error as AxiosError).response?.status === 404) {
+        setError('User does not exist');
+      } else if ((error as AxiosError).response?.status === 401) {
+        setError('Incorrect password');
+      } else {
+        const responseData: { error?: string } = (error as AxiosError).response?.data || {};
+        const errorMessage = responseData.error || 'Unknown error';
+        setError(errorMessage);
+      }
       console.error('Failed to log in:', (error as AxiosError).message || 'Unknown error');
-      setError((error as AxiosError).message || 'Unknown error');      
     }
   };
 
