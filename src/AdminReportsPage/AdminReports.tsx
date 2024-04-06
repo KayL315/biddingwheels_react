@@ -13,7 +13,8 @@ export const AdminReports : React.FC<{}> = ()=>{
     let storedUserData : any = localStorage.getItem('userData');
     storedUserData = JSON.parse(storedUserData)
     if(!storedUserData || storedUserData.user_role !== "admin"){
-      navigator('/login')
+      alert("Only admin allowed")
+      navigator('/')
     }
   }
 
