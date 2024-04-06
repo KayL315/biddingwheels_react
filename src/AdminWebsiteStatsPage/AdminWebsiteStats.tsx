@@ -11,14 +11,7 @@ import {useNavigate} from "react-router-dom";
 export const AdminWebsiteStats: React.FC<{}> = () => {
   const navigator = useNavigate();
 
-  const handleAdmin= async ()=>{
-    const response : any = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
-    console.log(response.data.user_role)
-    if(response && response.data.user_role !== "admin"){
-      alert("Only admin allowed")
-      navigator('/')
-    }
-  }
+
 
 
   const[dailySalesData, setDailySalesData] = useState<any[]>([]);
@@ -29,7 +22,21 @@ export const AdminWebsiteStats: React.FC<{}> = () => {
   const [error, setError] = useState<string>("");
   // If data still loading
   const [loading, setLoading] = useState<boolean>(true);
+  const handleAdmin= async ()=>{
+    try{
+      const response : any = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
+      console.log(response.data.user_role)
+      if(response && response.data.user_role !== "admin"){
+        navigator('/')
+        alert("Only admin allowed")
+      }
+    }catch(e:unknown){
+      const msg : string = e instanceof Error? e.message : "Unknown Error Occurred";
+      setError(msg)
+      navigator('/')
 
+    }
+  }
   function getTodayDate(): string {
     const today = new Date();
     const year = today.getFullYear();
