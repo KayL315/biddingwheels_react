@@ -22,7 +22,7 @@ async function getCarListing(listid: string): Promise<CarListing> {
 
 const checkUserSession = async () => {
   try {
-    const response = await axios.get(`${API_URL}/check_session`, { withCredentials: true });
+    const response = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
     return response.status === 200;
   } catch (error) {
     return false;
@@ -52,14 +52,14 @@ export const CarsDetailsPage: React.FC = () => {
     checkUserSession().then(loggedIn => setIsLoggedIn(loggedIn));
   }, [listid]);
   
-  const handleInteraction = async (action: () => Promise<void>) => {
-    const isLoggedIn = await checkUserSession();
-    if (!isLoggedIn) {
-      navigate('/login');
-    } else {
-      action();
-    }
-  };
+  // const handleInteraction = async (action: () => Promise<void>) => {
+  //   const isLoggedIn = await checkUserSession();
+  //   if (!isLoggedIn) {
+  //     navigate('/login');
+  //   } else {
+  //     action();
+  //   }
+  // };
 
   if (loading) {
     return <p>Loading car details...</p>;
@@ -73,7 +73,7 @@ export const CarsDetailsPage: React.FC = () => {
 
   const handleBidSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleInteraction(async () => {
+    // handleInteraction(async () => {
       if (bid <= parseFloat(formattedHighestBid)) {
         alert("Your bid must be higher than the current highest bid.");
         return;
@@ -85,15 +85,14 @@ export const CarsDetailsPage: React.FC = () => {
       };
   
       try {
-        const response = await axios.post(`${API_URL}/submit-bid`, bidData);
-        // Update highest bid on success
-        setCarDetails({...carDetails, highestBid: bid}); 
-        console.log(response.data); // Log the server response
+        const response = await axios.post(`http://localhost:8000/submit-bid`, bidData, { withCredentials: true });
+        alert(response.data.message);
+        setCarDetails({...carDetails, highestBid: bid, highestBidHolderUsername: response.data.highestBidHolderUsername}); 
+        console.log(response.data);
       } catch (error) {
-        // Handle errors
         console.error('Error placing bid:', error);
       }
-    });
+    // });
   };
 
   const formattedStartingPrice = typeof car.startingPrice === 'number'
@@ -105,9 +104,9 @@ export const CarsDetailsPage: React.FC = () => {
   : parseFloat(car.highestBid || '0').toFixed(2);
 
   const handleReportClick = () => {
-    handleInteraction(async () => {
+    // handleInteraction(async () => {
       setShowReportForm(true);
-    });
+    // });
   };
 
   const handleReportSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -116,10 +115,19 @@ export const CarsDetailsPage: React.FC = () => {
       description: reportDescription,
       listing_id: car.listid
     };
-    console.log(reportData)
   
     try {
-      const response = await axios.post(`${API_URL}/post-report`, reportData);
+      const response = await axios.post(
+        `http://localhost:8000/post-report`, 
+        JSON.stringify(reportData), // Ensuring data is in JSON format
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json' // Setting Content-Type header
+          }
+        }
+      );
+      alert("Report submitted successfully");
       // Handle success here
       console.log(response.data); // The response data from Axios
       setReportDescription('');

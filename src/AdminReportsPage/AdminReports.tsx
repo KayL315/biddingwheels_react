@@ -4,15 +4,20 @@ import {ReportedItem} from "../Components/ReportedItemCard/ReportedItem";
 import {LoadingSpinner} from "../Utils/LoadingSpinner/LoadingSpinner";
 import {ErrorAlert} from "../Utils/ErrorAlert/ErrorAlert";
 import {NavigateFunction, useNavigate} from "react-router";
+import axios from "axios";
 
 export const AdminReports : React.FC<{}> = ()=>{
-  // Handles if current user is admin
-  const isAdmin = true;
-  const navigator :NavigateFunction = useNavigate();
-  // Either to home page or log user out and log in again
-  if(!isAdmin){
-    navigator("/login")
+  const navigator = useNavigate();
+
+  const handleAdmin= ()=>{
+    let storedUserData : any = localStorage.getItem('userData');
+    storedUserData = JSON.parse(storedUserData)
+    if(!storedUserData || storedUserData.user_role !== "admin"){
+      alert("Only admin allowed")
+      navigator('/')
+    }
   }
+
 
   // Items to be displayed
   const [items, setItems] = useState<[]>([]);
@@ -25,6 +30,7 @@ export const AdminReports : React.FC<{}> = ()=>{
 
 
   useEffect(()=>{
+    handleAdmin()
     const fetchItems = async ()=>{
       try{
          
