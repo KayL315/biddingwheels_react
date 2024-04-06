@@ -7,25 +7,16 @@ import {NavigateFunction, useNavigate} from "react-router";
 import axios from "axios";
 
 export const AdminReports : React.FC<{}> = ()=>{
-  const handle_session = async ()=>{
-    try{
-      const URL : string = process.env.REACT_APP_SERVER_URL + "/check_session";
-      const response = await axios.get(URL);
-      if (response){console.log(response)}
-    } catch(e : unknown){
-      console.log(e)
+  const navigator = useNavigate();
+
+  const handleAdmin= ()=>{
+    let storedUserData : any = localStorage.getItem('userData');
+    storedUserData = JSON.parse(storedUserData)
+    if(!storedUserData || storedUserData.user_role !== "admin"){
+      navigator('/login')
     }
   }
-  handle_session();
 
-
-  // Handles if current user is admin
-  const isAdmin = true;
-  const navigator :NavigateFunction = useNavigate();
-  // Either to home page or log user out and log in again
-  if(!isAdmin){
-    navigator("/login")
-  }
 
   // Items to be displayed
   const [items, setItems] = useState<[]>([]);
@@ -38,6 +29,7 @@ export const AdminReports : React.FC<{}> = ()=>{
 
 
   useEffect(()=>{
+    handleAdmin()
     const fetchItems = async ()=>{
       try{
          

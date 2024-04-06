@@ -6,8 +6,20 @@ import {LineChart} from "../Utils/Chart/LineChart";
 import {LoadingSpinner} from "../Utils/LoadingSpinner/LoadingSpinner";
 import {ErrorAlert} from "../Utils/ErrorAlert/ErrorAlert";
 import axios, {AxiosResponse} from "axios";
+import {useNavigate} from "react-router-dom";
 
 export const AdminWebsiteStats: React.FC<{}> = () => {
+  const navigator = useNavigate();
+
+  const handleAdmin= ()=>{
+    let storedUserData : any = localStorage.getItem('userData');
+    storedUserData = JSON.parse(storedUserData)
+    if(!storedUserData || storedUserData.user_role !== "admin"){
+      navigator('/login')
+    }
+  }
+
+
   const[dailySalesData, setDailySalesData] = useState<any[]>([]);
   const [modelSales, setModelSales] = useState<any[]>([]);
   const [todaySold, setTodaySold] = useState<number>(0);
@@ -30,6 +42,7 @@ export const AdminWebsiteStats: React.FC<{}> = () => {
   // console.log(todayDate); //
 
   useEffect(()=>{
+    handleAdmin()
     const handleStatsFetch= async ()=>{
       try{
 
