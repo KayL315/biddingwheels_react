@@ -9,14 +9,6 @@ import axios from "axios";
 export const AdminReports : React.FC<{}> = ()=>{
   const navigator = useNavigate();
 
-  const handleAdmin= async ()=>{
-    const response : any = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
-
-    if(response && response.data.user_role !== "admin"){
-      alert("Only admin allowed")
-      navigator('/')
-    }
-  }
 
 
   // Items to be displayed
@@ -26,7 +18,21 @@ export const AdminReports : React.FC<{}> = ()=>{
   // If data still loading
   const [loading, setLoading] = useState<boolean>(true);
 
+  const handleAdmin= async ()=>{
+    try{
+      const response : any = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
+      console.log(response.data.user_role)
+      if(response && response.data.user_role !== "admin"){
+        navigator('/')
+        alert("Only admin allowed")
+      }
+    }catch(e:unknown){
+      const msg : string = e instanceof Error? e.message : "Unknown Error Occurred";
+      setError(msg)
+      navigator('/')
 
+    }
+  }
 
 
   useEffect(()=>{
