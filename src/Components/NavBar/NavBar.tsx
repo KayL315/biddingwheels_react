@@ -50,7 +50,7 @@ export const NavBar = memo(() => {
                 {!isLogin && (
                     <IconLink
                         icon={<FaRegUserCircle />}
-                        text="Sign Up"
+                        text="SignUp"
                         url="/signup"
                     />
                 )}
@@ -71,7 +71,7 @@ export const NavBar = memo(() => {
                                 dispatch(logout());
                             });
                         }}
-                        label="logout"
+                        label="Logout"
                     />
                 )}
             </div>
