@@ -1,3 +1,24 @@
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-car-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px;
+    padding: 10px;
+}
+
+.payment-car-detail {
+    display: flex;
+    width: 50vw;
+    max-width: 600px;
+}
+
 .payment-credit-card {
     display: flex;
     flex-direction: column;
@@ -9,27 +30,14 @@
     margin: 12px;
     display: flex;
     flex-direction: column;
+    width: 50vw;
+    max-width: 600px;
 }
 
 .payment-confirm-btn-container {
-/* 
     display: flex;
-    justify-content: center; */
-    /* color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9; */
-}
-
-.payment-confirm-btn {
-    display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    align-self: center;
-    background-color: #4caf50;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -37,4 +45,8 @@
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+}
+
+.payment-confirm-btn {
+    
 }

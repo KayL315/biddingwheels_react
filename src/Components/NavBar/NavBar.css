@@ -8,3 +8,8 @@
     background-color: #424242;
     padding: 6px 8px;
 }
+
+.user-status-container {
+    display: flex;
+    flex-direction: row;
+}

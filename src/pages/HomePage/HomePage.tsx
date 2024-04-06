@@ -8,7 +8,7 @@ import { RootState } from "../../store";
 import { CarItem } from "../../Interface";
 
 export const HomePage = () => {
-    const cars = useSelector((state: RootState) => state.cars);
+    const carList = useSelector((state: RootState) => state.cars.carList);
     const dispatch = useDispatch();
 
     const defalutSlideUrls = [
@@ -17,7 +17,7 @@ export const HomePage = () => {
             caption: "Caption Text 1",
         },
         {
-            url: "https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Cybertruck-Desktop.jpg",
+            url: "https://digitalassets.tesla.com/tesla-contents/image/upload/h_1800,w_2880,c_fit,f_auto,q_auto:best/Homepage-Model-X-Desktop-LHD",
             caption: "Caption Text 2",
         },
         {
@@ -28,7 +28,7 @@ export const HomePage = () => {
 
     useEffect(() => {
         const fetchCars = async () => {
-            fetch("http://localhost:8000/reported-items")
+            fetch("http://localhost:8000/all-listings")
                 .then((res) => res.json())
                 .then((data: CarItem[]) => {
                     dispatch(addCars(data));
@@ -41,7 +41,7 @@ export const HomePage = () => {
     return (
         <div className="homepage-container">
             <Slides slideList={defalutSlideUrls} />
-            <ItemList title="Car List" items={cars} />
+            <ItemList title="Car List" items={carList} />
         </div>
     );
 };

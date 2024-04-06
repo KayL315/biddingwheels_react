@@ -1,10 +1,14 @@
 import "./PaymentPage.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ItemCard } from "../../Components/ItemList";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useNavigate } from "react-router";
 
 export const PaymentPage = () => {
     const [formData, setFormData] = useState({
-        firstName: "",
+        fullName: "",
         email: "",
         address: "",
         city: "",
@@ -14,9 +18,28 @@ export const PaymentPage = () => {
         cardNumber: "",
         expMonth: "",
         expYear: "",
-        cvv: "",
-        sameAddress: true,
+        cvv: ""
     });
+    const navigate = useNavigate();
+
+    const isLogin = useSelector((state: RootState) => state.user.isLogin);
+    const currentCar = useSelector((state: RootState) => state.cars.carList[0]);
+
+    useEffect(() => {
+        if (!isLogin) {
+            console.log("Not logged in");
+            navigate("/LogIn");
+            return;
+        }
+        if (!currentCar) {
+            navigate("/");
+            return;
+        }
+    }, [isLogin, currentCar, navigate]);
+
+    const checkEmeptyData = () => {
+        return Object.values(formData).some((value) => value === "");
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -33,6 +56,13 @@ export const PaymentPage = () => {
 
     return (
         <div className="payment-container">
+            {currentCar && (
+                <div className="payment-car-detail-container">
+                    <div className="payment-car-detail">
+                        <ItemCard {...currentCar} />
+                    </div>
+                </div>
+            )}
             <form>
                 <div className="payment-section">
                     <h2>Payment Method</h2>
@@ -79,16 +109,12 @@ export const PaymentPage = () => {
                         />
                     </div>
                 </div>
-
                 <div className="payment-section">
                     <h2>Shipping Address</h2>
-                    {/* <label htmlFor="fname" className="fa fa-user">
-                        Full Name
-                    </label> */}
                     <input
                         type="text"
-                        name="firstName"
-                        value={formData.firstName}
+                        name="fullName"
+                        value={formData.fullName}
                         onChange={handleChange}
                         placeholder="Full Name"
                         required
@@ -135,15 +161,17 @@ export const PaymentPage = () => {
                     />
                 </div>
                 <div className="payment-confirm-btn-container">
-                    <button
-                    className="payment-confirm-btn"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleSubmit();
-                        }}
-                    >
-                        Submit
-                    </button>
+                    <div className="payment-confirm-btn">
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleSubmit();
+                            }}
+                            disabled={checkEmeptyData()}
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

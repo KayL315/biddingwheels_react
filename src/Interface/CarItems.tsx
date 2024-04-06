@@ -1,11 +1,20 @@
 export type CarItem = {
-    ListId: number;
-    Image: string;
-    Make: string;
-    Model: string;
-    Seller: string;
-    SellerId: number;
-    Description: string;
-    Reporter: string;
-    ReporterId: number;
+    additionalFeatures: string;
+    biddingDeadline: string;
+    city: string;
+    color: string;
+    description: string;
+    engineSerialNumber: string;
+    highestBid: string;
+    highestBidHolder: number;
+    image: string;
+    licenseNumber: string;
+    listid: number;
+    make: string;
+    mileage: number;
+    model: string;
+    sellerUsername: string;
+    startingPrice: string;
+    year: number;
 };
+

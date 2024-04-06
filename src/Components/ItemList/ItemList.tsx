@@ -14,7 +14,7 @@ export const ItemList = (props: ItemListProps) => {
             <h2 className="item-list-title">{title}</h2>
             <div className="items-container">
                 {items.map((item, index) => {
-                    return <ItemCard key={`item-${index}`} {...item} />;
+                    return <div className="items-details" key={`items-${index}`}><ItemCard key={index} {...item} /></div>;
                 })}
             </div>
         </div>
