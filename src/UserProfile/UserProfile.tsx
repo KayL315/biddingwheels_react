@@ -25,6 +25,7 @@ const Profile: React.FC = () => {
     const checkSession = async () => {
       try {
         const response = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
+        console.log('Data from server:', response.data); 
         if (response.data.user_id) {
           // 用户已登录，设置用户数据并将isLoggedIn状态设置为true
           setUserData(response.data); // 设置用户数据
