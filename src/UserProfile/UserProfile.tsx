@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './UserProfile.css';
 
 interface UserData {
   username: string;
@@ -106,8 +107,60 @@ const Profile: React.FC = () => {
     );
   }
 
+  // return (
+  //   <div>
+  //     {isEditing ? (
+  //       <div>
+  //         <h2>Edit Profile</h2>
+  //         <form>
+  //           <label>Username: </label>
+  //           <input type="text" name="username" value={editedData.username} onChange={handleInputChange} /><br />
+  //           <label>Password: </label>
+  //           <input type="password" name="password" value={editedData.password} onChange={handleInputChange} /><br />
+  //           {/* <label>Avatar: </label>
+  //           <input type="text" name="avatar" value={editedData.avatar} onChange={handleInputChange} /><br /> */}
+  //           <label>Address: </label>
+  //           <input type="text" name="address" value={editedData.address} onChange={handleInputChange} /><br />
+  //           <label>Payment Method: </label>
+  //           <select name="payment_method" value={editedData.payment_method} onChange={handlePaymentMethodChange}>
+  //             <option value="online">Online</option>
+  //             <option value="offline">Offline</option>
+  //           </select><br />
+  //         </form>
+  //         <button onClick={handleConfirm}>Confirm</button>
+  //       </div>
+  //     ) : (
+  //       <div>
+  //         <h2>User Profile</h2>
+  //         <p>Username: {userData.username}</p>
+  //         {/* <p>Avatar: {userData.avatar}</p> */}
+  //         <p>Address: {userData.address}</p>
+  //         <p>Payment Method: {userData.payment_method}</p>
+  //         <button onClick={handleEdit}>Edit</button>
+
+  //         <div>
+  //   <h3>Listings</h3>
+  //   <div className="card-container">
+  //     {listings.map((listing) => (
+  //       <div key={listing.listid} className="card">
+  //         <img src={listing.image} alt="Car" />
+  //         <div>
+  //           <h4>{listing.model}</h4>
+  //           <p>Highest Bid: {listing.highest_bid}</p>
+  //         </div>
+  //       </div>
+  //     ))}
+  //   </div>
+  // </div>
+
+
+  //       </div>
+  //     )}
+  //   </div>
+  // );
+
   return (
-    <div>
+    <div className="user-profile-container">
       {isEditing ? (
         <div>
           <h2>Edit Profile</h2>
@@ -116,8 +169,6 @@ const Profile: React.FC = () => {
             <input type="text" name="username" value={editedData.username} onChange={handleInputChange} /><br />
             <label>Password: </label>
             <input type="password" name="password" value={editedData.password} onChange={handleInputChange} /><br />
-            {/* <label>Avatar: </label>
-            <input type="text" name="avatar" value={editedData.avatar} onChange={handleInputChange} /><br /> */}
             <label>Address: </label>
             <input type="text" name="address" value={editedData.address} onChange={handleInputChange} /><br />
             <label>Payment Method: </label>
@@ -131,28 +182,27 @@ const Profile: React.FC = () => {
       ) : (
         <div>
           <h2>User Profile</h2>
-          <p>Username: {userData.username}</p>
-          {/* <p>Avatar: {userData.avatar}</p> */}
-          <p>Address: {userData.address}</p>
-          <p>Payment Method: {userData.payment_method}</p>
+          <div className="user-profile-info-box">
+            <p>Username: {userData.username}</p>
+            <p>Address: {userData.address}</p>
+            <p>Payment Method: {userData.payment_method}</p>
+          </div>
           <button onClick={handleEdit}>Edit</button>
 
-          <div>
-    <h3>Listings</h3>
-    <div className="card-container">
-      {listings.map((listing) => (
-        <div key={listing.listid} className="card">
-          <img src={listing.image} alt="Car" />
-          <div>
-            <h4>{listing.model}</h4>
-            <p>Highest Bid: {listing.highest_bid}</p>
+          <div className="user-profile-listings-container">
+            <h2>Listings</h2>
+            <div className="user-profile-card-container">
+              {listings.map((listing) => (
+                <div key={listing.listid} className="user-profile-card">
+                  <img src={listing.image} alt="Car" />
+                  <div>
+                    <h4>{listing.model}</h4>
+
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-
         </div>
       )}
     </div>
