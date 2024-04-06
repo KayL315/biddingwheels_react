@@ -5,9 +5,16 @@ import { TbSteeringWheel } from "react-icons/tb";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { memo } from "react";
+import { IconButton } from "../IconButton";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { handleLogout } from "../../LogoutButton/LogoutButton";
+import { useDispatch } from "react-redux";
+import { logout } from "../../Slice";
 
-export const NavBar = () => {
+export const NavBar = memo(() => {
     const { isLogin, isAdmin } = useSelector((state: RootState) => state.user);
+    const dispatch = useDispatch();
     return (
         <div className="navbar-container">
             <IconLink icon={<FaCar />} text="Home" url="/" />
@@ -32,23 +39,42 @@ export const NavBar = () => {
                     url="/admin-website-stats"
                 />
             )}
-            {isLogin && (
-                <IconLink
-                    icon={<FaRegUserCircle />}
-                    text="Profile"
-                    url="/userprofile"
-                />
-            )}
-            {!isLogin && (
-                <IconLink
-                    icon={<TbSteeringWheel />}
-                    text="Login"
-                    url="/login"
-                />
-            )}
+            <div className="user-status-container">
+                {!isLogin && (
+                    <IconLink
+                        icon={<TbSteeringWheel />}
+                        text="Login"
+                        url="/login"
+                    />
+                )}
+                {!isLogin && (
+                    <IconLink
+                        icon={<FaRegUserCircle />}
+                        text="Sign Up"
+                        url="/signup"
+                    />
+                )}
 
-            {/* <IconLink icon={<TbSteeringWheel />} text="Signup" url="/signup" /> */}
-            {/* <IconLink icon={<FaCircle />} text="Payment" url="/payment" /> */}
+                {isLogin && (
+                    <IconLink
+                        icon={<FaRegUserCircle />}
+                        text="Profile"
+                        url="/userprofile"
+                    />
+                )}
+
+                {isLogin && (
+                    <IconButton
+                        icon={<RiLogoutCircleRLine />}
+                        onClick={() => {
+                            handleLogout().then(() => {
+                                dispatch(logout());
+                            });
+                        }}
+                        label="logout"
+                    />
+                )}
+            </div>
         </div>
     );
-};
+});

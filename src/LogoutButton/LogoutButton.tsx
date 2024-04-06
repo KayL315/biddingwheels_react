@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const handleLogout = async () => {
+export const handleLogout = async () => {
     try {
         const response = await axios.get('http://localhost:8000/logout', { withCredentials: true });
         console.log(response.data.message);

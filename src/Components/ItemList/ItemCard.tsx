@@ -1,42 +1,37 @@
 import "./ItemCard.css";
-
-export interface ItemCardProps {
-    name?: string;
-    id?: string;
-    description?: string;
-    price?: number;
-    image?: string;
-}
+import { CarItem } from "../../Interface";
+import { useNavigate } from "react-router-dom";
 
 const ImgUrl =
     "https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$MTS18,$PN01,$WS91,$IBE00&view=FRONT34&model=ms&size=1920&bkba_opt=1&crop=1300,500,300,300&";
 
-export const ItemCard = (props: ItemCardProps) => {
-    const {
-        name = "Car Name",
-        id = "1",
-        description = "Car Description, could include some details about the car, such as the year, make, model, and color.",
-        price = "40,000",
-        image = ImgUrl,
-    } = props;
+export const ItemCard = (props: CarItem) => {
+    const { listid, make, startingPrice, image = ImgUrl, description } = props;
+
+    let navigate = useNavigate();
 
     return (
         <div className="item-card-container">
-            <a href={`/list/${id}`} className="item-link">
+            <div
+                className="item-link"
+                onClick={() => {
+                    navigate(`/list/${listid}`);
+                }}
+            >
                 <div className="item-cover-container">
-                    <img src={image} alt={name} className="item-cover" />
+                    <img src={image} alt={description} className="item-cover" />
                 </div>
 
                 <div className="item-title-container">
-                    <div className="item-title-content">{name}</div>
+                    <div className="item-title-content">{make}</div>
                 </div>
                 <div className="item-desp-container">
                     <div className="item-desp-content">{description}</div>
                 </div>
                 <div className="item-price-container">
-                    <div className="item-price-content">{price}</div>
+                    <div className="item-price-content">{`${startingPrice} up`}</div>
                 </div>
-            </a>
+            </div>
         </div>
     );
 };

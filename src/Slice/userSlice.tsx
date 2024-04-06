@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export interface UserSliceInterface {
+    name: string;
+    email: string;
+    isLogin: boolean;
+    isAdmin: boolean;
+}
+
+const initialState: UserSliceInterface = {
     name: "",
     email: "",
-    isLogin: true,
-    isAdmin: true,
+    isLogin: false,
+    isAdmin: false,
 };
 
 const userSlice = createSlice({
@@ -12,8 +19,8 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            // state.name = action.payload.name;
-            // state.email = action.payload.email;
+            state.name = action.payload.name;
+            state.email = action.payload.email;
             state.isLogin = true;
             state.isAdmin = action.payload.isAdmin;
         },

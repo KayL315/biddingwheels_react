@@ -1,19 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CarItem } from "../Interface/CarItems";
 
-const initialState: CarItem[] = [];
+export interface CarState {
+    carList: CarItem[];
+    currentCar: CarItem | null;
+}
+
+const initialState: CarState = {
+    carList: [],
+    currentCar: null,
+};
 
 const carsSlice = createSlice({
     name: "cars",
     initialState,
     reducers: {
         addCars: (state, action) => {
-            if (state.length === 0) {
-                state.push(...action.payload);
+            if (action.payload) {
+                state.carList = action.payload;
             }
+        },
+        updateCurrentCar: (state, action) => {
+            state.currentCar = action.payload;
         },
     },
 });
 
 export default carsSlice.reducer;
-export const { addCars } = carsSlice.actions;
+export const { addCars, updateCurrentCar } = carsSlice.actions;

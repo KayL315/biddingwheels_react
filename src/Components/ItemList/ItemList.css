@@ -17,3 +17,8 @@
     margin: 10px;
     font-weight: 900;
 }
+
+.items-details {
+    width: 30vw;
+    max-width: 300px;
+}
