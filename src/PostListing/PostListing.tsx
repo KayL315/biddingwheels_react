@@ -1,10 +1,25 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { CarListing } from '../Interface/CarListing';
 import "./PostListing.css";
+import axios from "axios";
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
+const fetchUserId = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/check_session', { withCredentials: true });
+    if (response.status === 200 && response.data.user_id) {
+      return response.data.user_id;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching user ID:', error);
+    return null;
+  }
+};
+
 export const PostListing: React.FC = () => {
+  const [userId, setUserId] = useState<number | null>(null);
   const [newListing, setNewListing] = useState<CarListing>({
     listid: 0,
     licenseNumber: '',
@@ -25,6 +40,18 @@ export const PostListing: React.FC = () => {
     image: '',
   });
 
+  useEffect(() => {
+    const initializeUserId = async () => {
+      const id = await fetchUserId();
+      if (id !== null) {
+        setUserId(id);
+        setNewListing(prev => ({ ...prev, seller: id }));
+      }
+    };
+    
+    initializeUserId();
+  }, []);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === "year" || name === "mileage" || name === "startingPrice") {
@@ -42,28 +69,28 @@ export const PostListing: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
     const listingToSubmit = {
       ...newListing,
       highestBid: newListing.startingPrice,
     };
     try {
-      const response = await fetch(`${API_URL}/post-listing`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(listingToSubmit)
-      });
+      const response = await axios.post(
+        'http://localhost:8000/post-listing',
+        listingToSubmit,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      // Handle success here (e.g., redirect or show a success message)
+      console.log(response.data);
+      alert('Listing posted successfully!');
     } catch (error) {
       console.error('There was a problem submitting the listing:', error);
+      alert('Failed to post the listing. Please try again.');
     }
   };
 
@@ -107,7 +134,7 @@ export const PostListing: React.FC = () => {
         <label>Bidding Deadline:</label>
         <input type="text" name="biddingDeadline" value={newListing.biddingDeadline} 
         onChange={handleInputChange} placeholder="Bidding Deadline" />
-        <label>Highest Bid:</label>
+        <label>Image URL:</label>
         <input type="text" name="image" value={newListing.image} 
         onChange={handleInputChange} placeholder="Image URL" />
         <button type="submit">Submit Listing</button>
