@@ -9,10 +9,10 @@ import axios from "axios";
 export const AdminReports : React.FC<{}> = ()=>{
   const navigator = useNavigate();
 
-  const handleAdmin= ()=>{
-    let storedUserData : any = localStorage.getItem('userData');
-    storedUserData = JSON.parse(storedUserData)
-    if(!storedUserData || storedUserData.user_role !== "admin"){
+  const handleAdmin= async ()=>{
+    const response : any = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
+
+    if(response && response.data.user_role !== "admin"){
       alert("Only admin allowed")
       navigator('/')
     }
