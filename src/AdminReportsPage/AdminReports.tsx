@@ -11,6 +11,8 @@ export const AdminReports : React.FC<{}> = ()=>{
 
   const handleAdmin= ()=>{
     let storedUserData : any = localStorage.getItem('userData');
+    console.log(storedUserData)
+
     storedUserData = JSON.parse(storedUserData)
     if(!storedUserData || storedUserData.user_role !== "admin"){
       alert("Only admin allowed")

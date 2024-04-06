@@ -3,11 +3,11 @@ import { Slides } from "../../Components/Slides";
 import { useSelector, useDispatch } from "react-redux";
 import { addCars } from "../../Slice";
 import "./HomePage.css";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { RootState } from "../../store";
 import { CarItem } from "../../Interface";
 
-export const HomePage = () => {
+export const HomePage : React.FC<{}> = () => {
     const carList = useSelector((state: RootState) => state.cars.carList);
     const dispatch = useDispatch();
 

@@ -3,14 +3,16 @@ import "./ReportedItem.css";
 import {Link} from "react-router-dom";
 
 export const ReportedItem : React.FC<{item: any}> = ({item})=>{
+  const imageHolder : string = "https://media.istockphoto.com/id/1214396728/vector/red-car-icon-isolated-on-white-background-clip-art-car-red-cute-illustration-car-flat-simple.jpg?s=612x612&w=0&k=20&c=Lh5wvIsb1bXeZhBXXMLoLRsUQnp9ZmKmSBlLM-KTxEQ=";
   return(
     <div className={"d-flex justify-content-start align-items-start"} style={{width:"35rem"}}>
       {/* Desktop Version */}
-      <Link to={"/" + String(item.ListId)} className={"d-none d-sm-flex text-decoration-none hw-reported-item justify-content-center " +
+      <Link to={"/list/" + String(item.ListId)} className={"d-none d-sm-flex text-decoration-none hw-reported-item justify-content-center " +
         "shadow p-0 align-items-center"}>
         <div className={"row w-100"}>
           <div className={"col-4 p-0"}>
-            <img src={item.Image} className={"hw-reported-img  img-fluid h-100 p-0 m-0"}></img>
+            <img src={item.Image ? item.Image : imageHolder}
+                 className={"hw-reported-img  img-fluid h-100 p-0 m-0"}></img>
           </div>
           <div className={"col-7"}>
             <h1 className={"m-0 p-0"}>{item.Make} {item.Model}</h1>
