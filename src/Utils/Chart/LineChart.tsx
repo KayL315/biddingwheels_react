@@ -4,9 +4,17 @@ import "chart.js/auto";
 import "./LineChart.css"
 import { ChartOptions} from "chart.js";
 
-export const LineChart : React.FC<{dates : any, sales : any}> = (props)=>{
-  const dates = props.dates;
-  const sales = props.sales;
+export const LineChart : React.FC<{data:any}> = (props)=>{
+
+
+  const dates : any[] = [];
+  const sales : any[] = [];
+
+  for(const d of props.data){
+    dates.push(d.Date)
+    sales.push(d.Total_Sales)
+  }
+
 
   const data  = {
     labels:dates,
