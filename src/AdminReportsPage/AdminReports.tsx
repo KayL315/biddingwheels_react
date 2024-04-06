@@ -4,8 +4,21 @@ import {ReportedItem} from "../Components/ReportedItemCard/ReportedItem";
 import {LoadingSpinner} from "../Utils/LoadingSpinner/LoadingSpinner";
 import {ErrorAlert} from "../Utils/ErrorAlert/ErrorAlert";
 import {NavigateFunction, useNavigate} from "react-router";
+import axios from "axios";
 
 export const AdminReports : React.FC<{}> = ()=>{
+  const handle_session = async ()=>{
+    try{
+      const URL : string = process.env.REACT_APP_SERVER_URL + "/check_session";
+      const response = await axios.get(URL);
+      if (response){console.log(response)}
+    } catch(e : unknown){
+      console.log(e)
+    }
+  }
+  handle_session();
+
+
   // Handles if current user is admin
   const isAdmin = true;
   const navigator :NavigateFunction = useNavigate();

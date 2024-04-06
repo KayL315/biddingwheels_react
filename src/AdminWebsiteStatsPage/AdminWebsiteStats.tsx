@@ -5,17 +5,29 @@ import {Chart} from "react-chartjs-2";
 import {LineChart} from "../Utils/Chart/LineChart";
 import {LoadingSpinner} from "../Utils/LoadingSpinner/LoadingSpinner";
 import {ErrorAlert} from "../Utils/ErrorAlert/ErrorAlert";
+import axios, {AxiosResponse} from "axios";
 
 export const AdminWebsiteStats: React.FC<{}> = () => {
-   const [dates, setDates] = useState<string[]>([]);
-   const [sales, setSales] = useState<number[]>([]);
+  const[dailySalesData, setDailySalesData] = useState<any[]>([]);
+  const [modelSales, setModelSales] = useState<any[]>([]);
+  const [todaySold, setTodaySold] = useState<number>(0);
 
   // Error to be displayed (if any)
   const [error, setError] = useState<string>("");
   // If data still loading
   const [loading, setLoading] = useState<boolean>(true);
 
+  function getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
+// Example usage
+  const todayDate = getTodayDate();
+  // console.log(todayDate); //
 
   useEffect(()=>{
     const handleStatsFetch= async ()=>{
@@ -26,13 +38,17 @@ export const AdminWebsiteStats: React.FC<{}> = () => {
           setError("SERVER_URL not retrieved correctly!");
         }
         const URL: string = SERVER_URL + "/website-stats";
-        const response : Response = await fetch(URL);
-        const data = await response.json();
-        if(data){
-          setDates(data.dates);
-          setSales(data.sales);
-        }
+        const response : AxiosResponse = await axios.get(URL)
+        if(response){
+          setModelSales(response.data["model_sales"])
+          setDailySalesData(response.data["sales"])
 
+          for(const data of dailySalesData){
+            if(data.Date === todayDate){
+              setTodaySold(data.Total.Sales)
+            }
+          }
+        }
         setError("")
 
       } catch(e : unknown){
@@ -57,15 +73,11 @@ export const AdminWebsiteStats: React.FC<{}> = () => {
       <h1>Daily Website Statistics</h1>
       <div className={"d-flex justify-content-center align-items-center flex-column"}>
         <h2>Today's Sales</h2>
-        <div className={"mt-2"}>
-          <p className={"row"}>
+        <div className={"mt-2 "}>
+          <p className={"row d-flex align-items-center justify-contents-center"}>
             <b className={"col-7"}>Cars Sold: </b>
             {/* The latest sale number */}
-            <span className={"col-5"}>{sales[sales.length - 1]}</span>
-          </p>
-          <p className={"row"}>
-            <b className={"col-7"}>Best Selling Model: </b>
-            <span className={"col-5"}>Toyota Prius</span>
+            <span className={"col-5"}>{todaySold}</span>
           </p>
         </div>
 
@@ -73,28 +85,49 @@ export const AdminWebsiteStats: React.FC<{}> = () => {
 
       <div className={"d-flex justify-content-center align-items-center flex-column mt-5"}>
         <h2 className={""}>Recent Website Trend</h2>
-        <LineChart dates={dates} sales={sales}/>
+        <LineChart data={dailySalesData}/>
       </div>
 
-      <div className={"d-flex justify-content-center align-items-center m-5"}>
-        <table className={"table table-striped"}>
-          <thead>
+      <div className={"d-flex"}>
+        <div className={"d-flex justify-content-center align-items-top m-5 w-50"}>
+          <table className={"table table-striped"}>
+            <thead>
             <tr>
               <th scope={"col"}>Date</th>
               <th scope={"col"}>Total Sales</th>
-              <th scope={"col"}>Best Selling Models</th>
             </tr>
 
-          </thead>
-          <tbody>
-          {dates.map((date, index)=>(
-            <tr key={index} >
-              <td scope={"row"}>{date}</td>
-              <td scope={"row"}>{sales[index]}</td>
+            </thead>
+            <tbody>
+            {dailySalesData.map((data : any, index : number)=>(
+              <tr key={index} >
+                <td scope={"row"}>{data.Date}</td>
+                <td scope={"row"}>{data.Total_Sales}</td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className={"d-flex justify-content-center align-items-top m-5 w-50"}>
+          <table className={"table table-striped"}>
+            <thead>
+            <tr>
+              <th scope={"col"}>Best Selling Car Models</th>
+              <th scope={"col"}>Cars Sold</th>
             </tr>
-          ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            {modelSales.map((data)=>(
+              <tr>
+                <td scope={"row"}>{data.Model}</td>
+                <td scope={"row"}>{data.Sold}</td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   );
