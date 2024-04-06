@@ -11,6 +11,7 @@ export const AdminReports : React.FC<{}> = ()=>{
 
   const handleAdmin= async ()=>{
     const response : any = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
+
     if(response && response.data.user_role !== "admin"){
       alert("Only admin allowed")
       navigator('/')
