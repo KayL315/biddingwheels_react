@@ -47,6 +47,15 @@
     cursor: pointer;
 }
 
+.send-button {
+    background-color: rgb(121, 177, 220);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
 .place-bid-button {
     background-color: black;
     color: white;

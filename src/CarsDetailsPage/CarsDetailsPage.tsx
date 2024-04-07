@@ -38,6 +38,8 @@ export const CarsDetailsPage: React.FC = () => {
   const [reportDescription, setReportDescription] = useState('');
   const [bid, setBid] = useState<number>(0);
   const navigate = useNavigate();
+  const [showMessageForm, setShowMessageForm] = useState(false);
+  const [messageDescription, setMessageDescription] = useState('');
 
   useEffect(() => {
     if (listid) {
@@ -115,7 +117,7 @@ export const CarsDetailsPage: React.FC = () => {
       description: reportDescription,
       listing_id: car.listid
     };
-  
+
     try {
       const response = await axios.post(
         `http://localhost:8000/post-report`, 
@@ -145,6 +147,46 @@ export const CarsDetailsPage: React.FC = () => {
     }
   };
 
+  //发消息的两个处理函数
+  const handleSendClick = () => {
+    setShowMessageForm(true);
+  };
+
+const handleSendSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const isLogged = await checkUserSession();
+  console.log(isLogged);
+  try {
+    const response = await axios.get('http://localhost:8000/check_id', { withCredentials: true });
+    const userData = response.data;
+    const user_id = userData.user_id;
+    console.log('User ID:', user_id);
+    const messageData = {
+      description: messageDescription,
+      receiver_id: car.seller,
+      user_id: user_id
+    };
+  console.log(typeof messageDescription); 
+  console.log(typeof car.seller); 
+  console.log('Sending message data:', messageData); 
+  const jsonData = JSON.stringify(messageData);
+  
+    const sendMessageResponse = await axios.post('http://localhost:8000/send_message', jsonData, {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+    console.log('Message sent successfully:', sendMessageResponse.data);
+    alert("Message sent successfully");
+  } catch (error: any) {
+    if (error.response.status === 401) {
+      console.log('User is not logged in. Please log in to send a message.');
+    } else {
+      console.error('Failed to send message:', error);
+    }
+    console.error('Failed to send message:', error);
+  }
+};
 
   return (
     <div className="car-listing">
@@ -204,7 +246,20 @@ export const CarsDetailsPage: React.FC = () => {
             <button type="submit" className="report-button">Submit Report</button>
           </form>
         )}
+
+
+        <button onClick={handleSendClick} className="send-button">Send Message to the Seller</button>
+        {showMessageForm && (
+          <form onSubmit={handleSendSubmit}>
+            <textarea
+              value={messageDescription}
+              onChange={(e) => setMessageDescription(e.target.value)}
+              // placeholder="Describe the issue"
+            />
+            <button type="submit" className="send-button">Send</button>
+          </form>)}
         </>
+
       )}
     </div>
   );
