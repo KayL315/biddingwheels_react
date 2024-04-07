@@ -135,9 +135,14 @@ export const PostListing: React.FC = () => {
         <label>Starting Price:</label>
         <input type="number" name="startingPrice" value={newListing.startingPrice} 
         onChange={handleInputChange} placeholder="Starting Price" />
-        <label>Bidding Deadline: YYYY-MM-DD</label>
-        <input type="text" name="biddingDeadline" value={newListing.biddingDeadline} 
-        onChange={handleInputChange} placeholder="Bidding Deadline" />
+        <label>Bidding Deadline (YYYY-MM-DDTHH:MM):</label>
+        <input
+          type="datetime-local"
+          name="biddingDeadline"
+          value={newListing.biddingDeadline}
+          onChange={handleInputChange}
+          placeholder="YYYY-MM-DDTHH:MM"
+        />
         <label>Image URL:</label>
         <input type="text" name="image" value={newListing.image} 
         onChange={handleInputChange} placeholder="Image URL" />
