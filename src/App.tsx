@@ -11,7 +11,7 @@ import {  HomePage } from "./pages";
 import SignUp from "./SignUp/signup";
 import { NavBar } from "./Components/NavBar/NavBar";
 import LogoutButton from "./LogoutButton/LogoutButton";
-
+import OtherProfile from "./OtherProfile/OtherProfile";
 function App() {
     return (
         <div>
@@ -36,6 +36,7 @@ function App() {
                     <Route path={"/"} element={<HomePage />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                     <Route path={"/logout"} element={<LogoutButton />} />
+                    <Route path="/other_profile/:username" element={<OtherProfile />} />
                 </Routes>
             </div>
         </div>

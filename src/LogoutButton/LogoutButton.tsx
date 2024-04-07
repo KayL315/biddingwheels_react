@@ -7,7 +7,7 @@ export const handleLogout = async () => {
         console.log(response.data.message);
         // 清除本地存储的用户数据
         localStorage.removeItem('userData');
-        // 可以做其他的一些操作，例如导航到登录页面等
+        window.location.href = '/';
     } catch (error) {
         console.error('Failed to log out:', error);
     }
