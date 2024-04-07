@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./CarsDetailsPage.css";
 import {CarListing} from "../Interface/CarListing";
 import axios from 'axios';
@@ -150,7 +150,10 @@ export const CarsDetailsPage: React.FC = () => {
     <div className="car-listing">
       <h2>{car.make} - {car.model} ({car.year})</h2>
       <img src={car.image} alt={`${car.make} ${car.model}`} />
-      <p><strong>Seller:</strong> {car.sellerUsername}</p>
+      <p>
+        <strong>Seller:</strong> 
+        <Link to={`/userprofile/${car.seller}`}>{car.sellerUsername}</Link>
+      </p>
       <p><strong>License Number:</strong> {car.licenseNumber}</p>
       <p><strong>Engine Serial Number:</strong> {car.engineSerialNumber}</p>
       <p><strong>Mileage:</strong> {car.mileage}</p>
@@ -163,7 +166,16 @@ export const CarsDetailsPage: React.FC = () => {
         <br />
         <strong>Highest Bid:</strong> ${formattedHighestBid}
         <br />
-        <strong>Highest Bid Holder:</strong> {car.highestBidHolderUsername}
+        <p>
+        <strong>Highest Bid Holder:</strong>
+        {car.highestBidHolder ? (
+          <Link to={`/userprofile/${car.highestBidHolder}`}>
+            {car.highestBidHolderUsername}
+          </Link>
+        ) : (
+          "No highest bid holder"
+        )}
+      </p>
         {isLoggedIn && (
           <>
           <form onSubmit={handleBidSubmit}>

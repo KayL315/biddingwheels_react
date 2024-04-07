@@ -86,6 +86,10 @@ export const PostListing: React.FC = () => {
         }
       );
 
+      if (response.status === 200 || response.status === 201) {
+        window.location.href = '/';
+      }
+
       console.log(response.data);
       alert('Listing posted successfully!');
     } catch (error) {
@@ -131,7 +135,7 @@ export const PostListing: React.FC = () => {
         <label>Starting Price:</label>
         <input type="number" name="startingPrice" value={newListing.startingPrice} 
         onChange={handleInputChange} placeholder="Starting Price" />
-        <label>Bidding Deadline:</label>
+        <label>Bidding Deadline: YYYY-MM-DD</label>
         <input type="text" name="biddingDeadline" value={newListing.biddingDeadline} 
         onChange={handleInputChange} placeholder="Bidding Deadline" />
         <label>Image URL:</label>
