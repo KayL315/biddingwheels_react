@@ -18,7 +18,7 @@ export const ReportedItem : React.FC<{item: any}> = ({item})=>{
             <h1 className={"m-0 p-0"}>{item.Make} {item.Model}</h1>
             <hr className={"m-1 p-0"}></hr>
             <div className={"hw-reported-details pb-2 pt-2"}>
-              <Link to={"/user?id=" + item.SellerId} className={" text-decoration-none"}>
+              <Link to={"/other_profile/" + item.Seller} className={" text-decoration-none"}>
                 <b className={"hw-reported-title"}>Listed by: </b>
                 {item.Seller}
               </Link>
@@ -26,7 +26,7 @@ export const ReportedItem : React.FC<{item: any}> = ({item})=>{
                 <b className={"hw-reported-title"}>Report Reason: </b>
                 {item.Description}
               </p>
-              <Link to={"/user?id=" + item.ReporterId} className={" text-decoration-none"}>
+              <Link to={"/other_profile/" + item.Reporter} className={" text-decoration-none"}>
                 <b className={"hw-reported-title"}>Reported by: </b>
                 {item.Reporter}
               </Link>
@@ -45,7 +45,7 @@ export const ReportedItem : React.FC<{item: any}> = ({item})=>{
             <h1 className={"m-0 p-0 ps-1"}>{item.Make} {item.Model}</h1>
             <hr className={"m-1 p-0"}></hr>
             <div className={"hw-reported-details ps-2 pb-2"}>
-              <Link to={"/user?id=" + item.SellerId} className={" text-decoration-none"}>
+              <Link to={"/other_profile/" + item.Seller} className={" text-decoration-none"}>
                 <b className={"hw-reported-title"}>Listed by: </b>
                 {item.Seller}
               </Link>
@@ -53,7 +53,7 @@ export const ReportedItem : React.FC<{item: any}> = ({item})=>{
                 <b className={"hw-reported-title"}>Report Reason: </b>
                 {item.Description}
               </p>
-              <Link to={"/user?id=" + item.ReporterId} className={" text-decoration-none"}>
+              <Link to={"/other_profile/" + item.Reporter} className={" text-decoration-none"}>
                 <b className={"hw-reported-title"}>Reported by: </b>
                 {item.Reporter}
               </Link>
