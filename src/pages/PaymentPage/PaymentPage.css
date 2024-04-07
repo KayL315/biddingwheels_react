@@ -47,6 +47,20 @@
     opacity: 0.9;
 }
 
-.payment-confirm-btn {
-    
+.pre-card-container {
+    padding: 2px;
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pre-address-container {
+    padding: 2px;
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

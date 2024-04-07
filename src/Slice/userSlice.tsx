@@ -15,7 +15,7 @@ export interface UserSliceInterface {
 // };
 
 const initialState: UserSliceInterface = {
-    user_id: undefined,
+    user_id: 13,
     role: "",
     isLogin: false,
     isAdmin: false,
