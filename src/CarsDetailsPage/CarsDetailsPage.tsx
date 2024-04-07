@@ -185,7 +185,7 @@ export const CarsDetailsPage: React.FC = () => {
             onChange={(e) => setBid(parseFloat(e.target.value))}
             placeholder="Enter your bid"
           />
-          <button type="submit">Place Bid</button>
+          <button type="submit" className="place-bid-button">Place Bid</button>
         </form>
           </>
         )}
@@ -193,7 +193,7 @@ export const CarsDetailsPage: React.FC = () => {
       <p><strong>Bidding Deadline:</strong> {new Date(car.biddingDeadline).toLocaleString()}</p>
       {isLoggedIn && (
         <>
-        <button onClick={handleReportClick}>Report This Listing</button>
+        <button onClick={handleReportClick} className="report-button">Report This Listing</button>
         {showReportForm && (
           <form onSubmit={handleReportSubmit}>
             <textarea
@@ -201,7 +201,7 @@ export const CarsDetailsPage: React.FC = () => {
               onChange={(e) => setReportDescription(e.target.value)}
               placeholder="Describe the issue"
             />
-            <button type="submit">Submit Report</button>
+            <button type="submit" className="report-button">Submit Report</button>
           </form>
         )}
         </>

@@ -38,6 +38,24 @@
     text-align: center;
 }
 
+.report-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.place-bid-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .car-listing {
         padding: 10px;
