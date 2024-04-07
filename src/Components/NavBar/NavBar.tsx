@@ -11,10 +11,12 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { handleLogout } from "../../LogoutButton/LogoutButton";
 import { useDispatch } from "react-redux";
 import { logout } from "../../Slice";
+import { useNavigate } from "react-router";
 
 export const NavBar = memo(() => {
     const { isLogin, isAdmin } = useSelector((state: RootState) => state.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <div className="navbar-container">
             <IconLink icon={<FaCar />} text="Home" url="/" />
@@ -69,6 +71,7 @@ export const NavBar = memo(() => {
                         onClick={() => {
                             handleLogout().then(() => {
                                 dispatch(logout());
+                                navigate("/");
                             });
                         }}
                         label="Logout"
