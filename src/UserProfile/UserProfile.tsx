@@ -19,10 +19,21 @@ const Profile: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [listings, setListings] = useState<any[]>([]);
+  const [userRating, setUserRating] = useState<number>(5);
 
 
 
   useEffect(() => {
+
+    const fetchUserRating = async (userId: number) => {
+      try {
+        const ratingResponse = await axios.get(`http://localhost:8000/fetch_rating/${userId}`);
+        setUserRating(ratingResponse.data);
+      } catch (error) {
+        console.error('Failed to fetch user rating:', error);
+      }
+    };
+
     const checkSession = async () => {
       try {
         const response = await axios.get<any>('http://localhost:8000/check_session', { withCredentials: true });
@@ -132,6 +143,7 @@ const Profile: React.FC = () => {
           <h2>User Profile</h2>
           <div className="user-profile-info-box">
             <p>Username: {userData.username}</p>
+            <p>Average Rating: {userRating}</p>
             <p>Address: {userData.address}</p>
             <p>Payment Method: {userData.payment_method}</p>
           </div>
