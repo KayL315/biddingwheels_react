@@ -66,19 +66,18 @@ const OtherProfile: React.FC = () => {
     return <div>Not a list</div>;
   }
 
-
   return (
     <div>
-      <div className="page-container">
-        <h2>{otherUserData.username}'s Profile</h2>
-        <div className="card-container">
+      <div className="other-profile-page-container">
+        <h2 className="other-profile-title">{otherUserData.username}'s Profile</h2>
+        <div className="other-profile-card-container">
           {otherUserData.listings.map((listing) => (
-            <Link to={`/list/${listing.listid}`} key={listing.listid}>
-              <div className="card">
-                <img src={listing.image} alt="Car" className="card-image" />
-                <div className="card-details">
-                  <h4>{listing.model}</h4>
-                  <p>License Number: {listing.licenseNumber}</p>
+            <Link to={`/list/${listing.listid}`} key={listing.listid} className="other-profile-card-link">
+              <div className="other-profile-card">
+                <img src={listing.image} alt="Car" className="other-profile-card-image" />
+                <div className="other-profile-card-details">
+                  <h4 className="other-profile-subtitle">{listing.model}</h4>
+                  <p className="other-profile-text">License Number: {listing.licenseNumber}</p>
                 </div>
               </div>
             </Link>
@@ -87,6 +86,7 @@ const OtherProfile: React.FC = () => {
       </div>
     </div>
   );
+  
   
 };
 

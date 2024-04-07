@@ -1,54 +1,53 @@
 /* styles.css */
 
 /* 页面容器样式 */
-.page-container {
+.other-profile-page-container {
     margin-top: 50px; /* 设置顶部间距 */
-  }
-  
-  /* 标题样式 */
-  h2 {
+}
+
+/* 标题样式 */
+.other-profile-title {
     text-align: center;
     font-weight: bold;
     font-size: 34px; /* 调整标题字体大小 */
-  }
-  
-  /* 卡片容器样式 */
-  .card-container {
+}
+
+/* 卡片容器样式 */
+.other-profile-card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around; /* 在容器内水平居中排列 */
-  }
-  
-  /* 卡片样式 */
-  .card {
+}
+
+/* 卡片样式 */
+.other-profile-card {
     width: 300px; /* 设置卡片宽度 */
     margin: 60px; /* 设置卡片之间的间距 */
     padding: 10px; /* 设置卡片内边距 */
     border: 1px solid #ccc; /* 设置卡片边框 */
     border-radius: 5px; /* 设置卡片圆角 */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 设置卡片阴影 */
-  }
-  
-  /* 卡片图像样式 */
-  .card-image {
+}
+
+/* 卡片图像样式 */
+.other-profile-card-image {
     width: 100%; /* 图像宽度填充卡片 */
     border-radius: 5px; /* 设置图像圆角 */
-  }
-  
-  /* 卡片详情样式 */
-  .card-details {
+}
+
+/* 卡片详情样式 */
+.other-profile-card-details {
     padding-top: 15px; /* 设置详情内容上边距 */
-  }
-  
-  /* 标题样式 */
-  h4 {
+}
+
+/* 标题样式 */
+.other-profile-subtitle {
     margin-bottom: 10px; /* 设置标题下边距 */
     font-size: 18px; /* 调整标题字体大小 */
-  }
-  
-  /* 文本样式 */
-  p {
+}
+
+/* 文本样式 */
+.other-profile-text {
     margin: 0; /* 清除段落默认外边距 */
     font-size: 16px; /* 调整文本字体大小 */
-  }
-  
+}
