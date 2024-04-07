@@ -29,7 +29,7 @@ const userSlice = createSlice({
             state.user_id = action.payload.user_id;
             state.role = action.payload.role;
             state.isLogin = true;
-            state.isAdmin = action.payload.role === "admin" ? true : false;
+            state.isAdmin = action.payload.user_role === "admin" ? true : false;
         },
         logout: (state) => {
             state.user_id = undefined;
