@@ -152,7 +152,7 @@ export const CarsDetailsPage: React.FC = () => {
       <img src={car.image} alt={`${car.make} ${car.model}`} />
       <p>
         <strong>Seller:</strong> 
-        <Link to={`/userprofile/${car.seller}`}>{car.sellerUsername}</Link>
+        <Link to={`/other_profile/${car.sellerUsername}/`}>{car.sellerUsername}</Link>
       </p>
       <p><strong>License Number:</strong> {car.licenseNumber}</p>
       <p><strong>Engine Serial Number:</strong> {car.engineSerialNumber}</p>
@@ -168,8 +168,8 @@ export const CarsDetailsPage: React.FC = () => {
         <br />
         <p>
         <strong>Highest Bid Holder:</strong>
-        {car.highestBidHolder ? (
-          <Link to={`/userprofile/${car.highestBidHolder}`}>
+        {car.highestBidHolderUsername ? (
+          <Link to={`/other_profile/${car.highestBidHolderUsername}/`}>
             {car.highestBidHolderUsername}
           </Link>
         ) : (
