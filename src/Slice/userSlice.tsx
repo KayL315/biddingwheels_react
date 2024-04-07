@@ -1,15 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface UserSliceInterface {
-    name: string;
-    email: string;
+    user_id: number | undefined;
+    role: string;
     isLogin: boolean;
     isAdmin: boolean;
 }
 
+// const initialState: UserSliceInterface = {
+//     user_id: undefined,
+//     role: "normal", // admin
+//     isLogin: true,
+//     isAdmin: false,
+// };
+
 const initialState: UserSliceInterface = {
-    name: "",
-    email: "",
+    user_id: undefined,
+    role: "",
     isLogin: false,
     isAdmin: false,
 };
@@ -19,14 +26,14 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            state.name = action.payload.name;
-            state.email = action.payload.email;
+            state.user_id = action.payload.user_id;
+            state.role = action.payload.role;
             state.isLogin = true;
-            state.isAdmin = action.payload.isAdmin;
+            state.isAdmin = action.payload.role === "admin" ? true : false;
         },
         logout: (state) => {
-            state.name = "";
-            state.email = "";
+            state.user_id = undefined;
+            state.role = "";
             state.isLogin = false;
             state.isAdmin = false;
         },
