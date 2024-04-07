@@ -6,12 +6,12 @@ import { CarsDetailsPage } from "./CarsDetailsPage/CarsDetailsPage";
 import { PostListing } from "./PostListing/PostListing";
 import LogIn from "./LoginPage/LoginPage";
 import UserProfile from "./UserProfile/UserProfile";
-import { ShipmentPage, PaymentPage } from "./pages";
-import {  HomePage } from "./pages";
+import { HomePage } from "./pages";
 import SignUp from "./SignUp/signup";
 import { NavBar } from "./Components/NavBar/NavBar";
 import LogoutButton from "./LogoutButton/LogoutButton";
 import OtherProfile from "./OtherProfile/OtherProfile";
+import Message from "./Message/Message";
 function App() {
     return (
         <div>
@@ -31,12 +31,16 @@ function App() {
                     <Route path={"/login"} element={<LogIn />} />
                     <Route path={"/userprofile"} element={<UserProfile />} />
                     <Route path={"/signup"} element={<SignUp />} />
-                    <Route path={"/payment"} element={<PaymentPage />} />
-                    <Route path={"/shipment"} element={<ShipmentPage />} />
                     <Route path={"/"} element={<HomePage />} />
+                    <Route path={"/logout"} element={<LogoutButton />} />
+                    <Route
+                        path="/other_profile/:username"
+                        element={<OtherProfile />}
+                    />
                     <Route path="*" element={<Navigate to="/" replace />} />
                     <Route path={"/logout"} element={<LogoutButton />} />
                     <Route path="/other_profile/:username" element={<OtherProfile />} />
+                    <Route path={"/message"} element={<Message />} />
                 </Routes>
             </div>
         </div>
