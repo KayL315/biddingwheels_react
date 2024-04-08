@@ -8,6 +8,7 @@ import {
     AddressInfoType,
     PaymentPage,
 } from "../pages/PaymentPage";
+import { useSelector } from "react-redux";
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -63,6 +64,7 @@ export const CarsDetailsPage: React.FC = () => {
     });
     const [showMessageForm, setShowMessageForm] = useState(false);
     const [messageDescription, setMessageDescription] = useState("");
+    const user = useSelector((state: any) => state.user);
 
     useEffect(() => {
         if (listid) {
@@ -124,12 +126,16 @@ export const CarsDetailsPage: React.FC = () => {
         const bidData = {
             bid: bid,
             listing_id: car.listid,
+            user_id: user.user_id as number,
+            owner_id : car.seller,
+            payment_id: cardInfo.payment_id,
+            address_id: addressInfo.address_id,
         };
 
         try {
             const response = await axios.post(
                 `http://localhost:8000/submit-bid`,
-                bidData,
+                JSON.stringify(bidData),
                 { withCredentials: true }
             );
             alert(response.data.message);
@@ -141,6 +147,7 @@ export const CarsDetailsPage: React.FC = () => {
             });
             console.log(response.data);
         } catch (error) {
+            console.error("Error placing bid:", bidData);
             console.error("Error placing bid:", error);
         }
         // });

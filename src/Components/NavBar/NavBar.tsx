@@ -1,7 +1,6 @@
 import "./NavBar.css";
 import { IconLink } from "./IconLink";
-import { FaCircle, FaCar, FaRegUserCircle } from "react-icons/fa";
-import { TbSteeringWheel } from "react-icons/tb";
+import { FaCar, FaRegUserCircle } from "react-icons/fa";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
