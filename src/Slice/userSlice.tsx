@@ -7,15 +7,8 @@ export interface UserSliceInterface {
     isAdmin: boolean;
 }
 
-// const initialState: UserSliceInterface = {
-//     user_id: undefined,
-//     role: "normal", // admin
-//     isLogin: true,
-//     isAdmin: false,
-// };
-
 const initialState: UserSliceInterface = {
-    user_id: 13,
+    user_id: undefined,
     role: "",
     isLogin: false,
     isAdmin: false,

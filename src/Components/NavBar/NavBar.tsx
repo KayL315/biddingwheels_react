@@ -12,6 +12,10 @@ import { handleLogout } from "../../LogoutButton/LogoutButton";
 import { useDispatch } from "react-redux";
 import { logout } from "../../Slice";
 import { useNavigate } from "react-router";
+import { IoMailUnreadOutline } from "react-icons/io5";
+import { LuFileText } from "react-icons/lu";
+import { BsFileEarmarkBarGraph } from "react-icons/bs";
+import { GoKey } from "react-icons/go";
 
 export const NavBar = memo(() => {
     const { isLogin, isAdmin } = useSelector((state: RootState) => state.user);
@@ -27,24 +31,32 @@ export const NavBar = memo(() => {
                     url="/postlisting"
                 />
             )}
+            {isLogin && (
+                <IconLink
+                    icon={<IoMailUnreadOutline />}
+                    text="Message"
+                    url="/message"
+                />
+            )}
             {isAdmin && (
                 <IconLink
-                    icon={<FaCircle />}
+                    icon={<LuFileText />}
                     text="Admin Reports"
                     url="/adminreports"
                 />
             )}
             {isAdmin && (
                 <IconLink
-                    icon={<FaCircle />}
+                    icon={<BsFileEarmarkBarGraph />}
                     text="Statistics"
                     url="/admin-website-stats"
                 />
             )}
+
             <div className="user-status-container">
                 {!isLogin && (
                     <IconLink
-                        icon={<TbSteeringWheel />}
+                        icon={<GoKey />}
                         text="Login"
                         url="/login"
                     />
