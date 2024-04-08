@@ -148,9 +148,7 @@ const LogIn: React.FC = () => {
                                                                 color: "red",
                                                             }}
                                                         >
-                                                            The password must be
-                                                            at least 6
-                                                            characters long
+                                                            Cannot Login 
                                                         </p>
                                                     )}
                                                 </div>
