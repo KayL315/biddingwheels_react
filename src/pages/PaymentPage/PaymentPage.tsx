@@ -86,6 +86,7 @@ export const PaymentPage = (props: PaymentPageProps) => {
             const data = await response.json();
             console.log(data);
             setPreCardInfo([...preCardInfo, data.cardInfo[0]]);
+            setCardInfo({...data.cardInfo[0]})
         } catch (error) {
             console.error("Failed to add new card:", error);
         }
@@ -109,6 +110,7 @@ export const PaymentPage = (props: PaymentPageProps) => {
             });
             const data = await response.json();
             setPreAddressInfo([...preAddressInfo, data.address[0]]);
+            setAddressInfo({...data.address[0]})
         } catch (error) {
             console.error("Failed to add new card:", error);
         }
