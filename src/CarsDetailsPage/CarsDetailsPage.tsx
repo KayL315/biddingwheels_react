@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import "./CarsDetailsPage.css";
 import { CarListing } from "../Interface/CarListing";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import {
     CardInfoType,
     AddressInfoType,
@@ -45,7 +44,6 @@ export const CarsDetailsPage: React.FC = () => {
     const [showReportForm, setShowReportForm] = useState(false);
     const [reportDescription, setReportDescription] = useState("");
     const [bid, setBid] = useState<number>(0);
-    const navigate = useNavigate();
     const [cardInfo, setCardInfo] = useState<CardInfoType>({
         payment_id: -1,
         cardName: "",
@@ -324,12 +322,14 @@ export const CarsDetailsPage: React.FC = () => {
                 <strong>Bidding Deadline:</strong>{" "}
                 {new Date(car.biddingDeadline).toLocaleString()}
             </p>
-            <PaymentPage
-                cardInfo={cardInfo}
-                setCardInfo={setCardInfo}
-                addressInfo={addressInfo}
-                setAddressInfo={setAddressInfo}
-            />
+            {isLoggedIn && (
+                <PaymentPage
+                    cardInfo={cardInfo}
+                    setCardInfo={setCardInfo}
+                    addressInfo={addressInfo}
+                    setAddressInfo={setAddressInfo}
+                />
+            )}
             {isLoggedIn && (
                 <>
                     <button
