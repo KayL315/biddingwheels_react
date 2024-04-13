@@ -6,7 +6,7 @@ const ImgUrl =
     "https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$MTS18,$PN01,$WS91,$IBE00&view=FRONT34&model=ms&size=1920&bkba_opt=1&crop=1300,500,300,300&";
 
 export const ItemCard = (props: CarItem) => {
-    const { listid, make, startingPrice, image = ImgUrl, description } = props;
+    const { listid, make, highestBid, image = ImgUrl, description } = props;
 
     let navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export const ItemCard = (props: CarItem) => {
                     <div className="item-desp-content">{description}</div>
                 </div>
                 <div className="item-price-container">
-                    <div className="item-price-content">{`${startingPrice} up`}</div>
+                    <div className="item-price-content">{`${highestBid} up`}</div>
                 </div>
             </div>
         </div>
