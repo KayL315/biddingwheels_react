@@ -3,12 +3,15 @@ import { Slides } from "../../Components/Slides";
 import { useSelector, useDispatch } from "react-redux";
 import { addCars } from "../../Slice";
 import "./HomePage.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RootState } from "../../store";
 import { CarItem } from "../../Interface";
+import { SearchBar } from "../../Components/SearchBar";
 
-export const HomePage : React.FC<{}> = () => {
+export const HomePage: React.FC<{}> = () => {
     const carList = useSelector((state: RootState) => state.cars.carList);
+    const [keywords, setKeywords] = useState("");
+    const [sortOrder, setSortOrder] = useState(false);
     const dispatch = useDispatch();
 
     const defalutSlideUrls = [
@@ -35,13 +38,19 @@ export const HomePage : React.FC<{}> = () => {
                 });
         };
         fetchCars();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className="homepage-container">
             <Slides slideList={defalutSlideUrls} />
-            <ItemList title="Car List" items={carList} />
+            <SearchBar
+                keywords={keywords}
+                setKeywords={setKeywords}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+            />
+            <ItemList title="Car List" items={carList} keywords={keywords} sortOrder={sortOrder}/>
         </div>
     );
 };

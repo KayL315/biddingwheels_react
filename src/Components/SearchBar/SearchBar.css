@@ -1,0 +1,41 @@
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .search-bar-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.keywords-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+}
+
+.keywords-title {
+    margin-right: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.time-order-container {
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-order-title {
+    margin-right: 5px;
+}
+
+.time-order-icon {
+    margin-left: 5px;
+}
